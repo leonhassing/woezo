@@ -8,6 +8,10 @@
 
 Start your development with a Design System for [Bootstrap 4](https://getbootstrap.com/?ref=creativetim), [React](https://reactjs.org/?ref=creativetim) and [Reactstrap](https://reactstrap.github.io/?ref=creativetim). It is open source, free and it features many components that can help you create amazing websites.
 
+**Project Woezo is based on this awesome framework**
+
+Thank you to the developers of Argon Design System React. This is an amazing startingpoint for my project, and I will not forget to give you guys credits where it is due!
+
 **Fully Coded Components**
 
 Argon Design System React is built with over 100 individual components, giving you the freedom of choosing and combining. All components can take variations in color, that you can easily modify using SASS files.
