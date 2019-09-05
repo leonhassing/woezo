@@ -1,0 +1,7 @@
+{
+    "appService.zipIgnorePattern": [
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/db1c616b-a96a-46a2-a470-bbc7faa44a8d/resourceGroups/woezo-webhosting/providers/Microsoft.Web/sites/woezowebapp",
+    "appService.deploySubpath": ""
+}

@@ -1,11 +1,11 @@
 {
-  "name": "argon-design-system-react",
+  "name": "woezo",
   "version": "1.0.0",
   "description": "React version of Argon Design System by Creative Tim",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/argon-design-system-react.git"
+    "url": "git+https://github.com/leonhassing/woezo.git"
   },
   "keywords": [
     "react",
@@ -20,14 +20,15 @@
     "react-kit",
     "argon-design-system",
     "argon-design-system-react",
-    "design-system-react"
+    "design-system-react",
+    "woezo"
   ],
   "author": "Creative Tim",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/creativetimofficial/argon-design-system-react/issues"
   },
-  "homepage": "https://demos.creative-tim.com/argon-design-system-react/",
+  "homepage": "https://woezowebapp.azurewebsites.net/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -48,6 +49,7 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "argon-design-system-react": "^1.0.0",
     "classnames": "2.2.6",
     "headroom.js": "0.9.4",
     "moment": "2.24.0",
