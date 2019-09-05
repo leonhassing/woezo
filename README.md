@@ -10,7 +10,7 @@ Start your development with a Design System for [Bootstrap 4](https://getbootstr
 
 **Project Woezo is based on this awesome framework**
 
-Thank you to the developers of Argon Design System React. This is an amazing startingpoint for my project, and I will not forget to give you guys credits where it is due! Really.
+Thank you to the developers of Argon Design System React. This is an amazing startingpoint for my project, and I will not forget to give you guys credits where it is due! Really. No kidding.
 
 **Fully Coded Components**
 
