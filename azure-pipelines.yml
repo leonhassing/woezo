@@ -61,10 +61,11 @@ stages:
               WebAppName: $(webAppName)
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'NODE|10.10'
-              StartupCommand: 'serve -s build'
+              StartupCommand: 'sudo serve -s build'
               ScriptType: 'Inline Script'
               InlineScript: |
-                npm install
-                npm rebuild node-sass
-                npm run build
+                sudo npm i -f
+                sudo npm install
+                sudo npm rebuild node-sass
+                sudo npm run build
                 sudo npm install -g serve
