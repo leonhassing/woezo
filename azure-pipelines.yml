@@ -62,7 +62,7 @@ stages:
           steps: 
           - task: CmdLine@2
             inputs:
-              script: 'npm install -g serve'
+              script: 'sudo npm install -g serve'
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: woezowebapp'
             inputs:
