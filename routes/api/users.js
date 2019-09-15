@@ -31,8 +31,6 @@ router.post('/register', (req, res) => {
 
   User.findOne({ email: req.body.email }).then(user => {
 
-    return res.status(400).json("got this far");
-
     if (user) {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
@@ -43,6 +41,7 @@ router.post('/register', (req, res) => {
         d: 'mm' // Default
       });
 
+      return res.status(400).json("got this far");
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
