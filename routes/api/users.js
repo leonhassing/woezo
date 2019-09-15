@@ -42,6 +42,7 @@ router.post('/register', (req, res) => {
       });
 
       return res.status(400).json("got this far");
+      
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
