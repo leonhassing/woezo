@@ -30,6 +30,9 @@ router.post('/register', (req, res) => {
   }
 
   User.findOne({ email: req.body.email }).then(user => {
+
+    return res.status(400).json("got this far");
+
     if (user) {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
@@ -48,7 +51,7 @@ router.post('/register', (req, res) => {
       });
 
       if (err) throw err;
-      
+
       newUser
         .save()
         .then(user => res.json(user))
