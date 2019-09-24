@@ -29,6 +29,34 @@ import Login from "views/examples/Login.jsx";
 import Profile from "views/examples/Profile.jsx";
 import Register from "views/examples/Register.jsx";
 
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser, logoutUser } from './actions/authActions';
+import RegisterUser from './components/auth/RegisterUser';
+import LoginUser from './components/auth/LoginUser';
+import PrivateRoute from './components/common/PrivateRoute';
+
+// Check for token
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  setAuthToken(localStorage.jwtToken);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(localStorage.jwtToken);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Clear current Profile
+    store.dispatch(clearCurrentProfile());
+    // Redirect to login
+    window.location.href = '/login';
+  }
+}
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
