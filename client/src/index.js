@@ -24,17 +24,19 @@ import "assets/vendor/font-awesome/css/font-awesome.min.css";
 import "assets/scss/argon-design-system-react.scss";
 
 import Index from "views/Index.jsx";
-import Landing from "views/examples/Landing.jsx";
-import Login from "views/examples/Login.jsx";
-import Profile from "views/examples/Profile.jsx";
-import Register from "views/examples/Register.jsx";
+import Landing from "views/Landing.jsx";
+import Login from "views/Login.jsx";
+import Profile from "views/Profile.jsx";
+import Register from "views/Register.jsx";
 
 import jwt_decode from 'jwt-decode';
-import setAuthToken from './utils/setAuthToken';
+import setAuthToken from './components/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
-import RegisterUser from './components/auth/RegisterUser';
-import LoginUser from './components/auth/LoginUser';
-import PrivateRoute from './components/common/PrivateRoute';
+// import { Provider } from 'react-redux';
+import store from './store';
+// import RegisterUser from './components/auth/RegisterUser';
+// import LoginUser from './components/auth/LoginUser';
+// import PrivateRoute from './components/common/PrivateRoute';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -50,8 +52,6 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
-    // Clear current Profile
-    store.dispatch(clearCurrentProfile());
     // Redirect to login
     window.location.href = '/login';
   }
@@ -60,11 +60,11 @@ if (localStorage.jwtToken) {
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact render={props => <Index {...props} />} />
+      <Route path="/" exact render={props => <Landing {...props} />} />
       <Route
-        path="/landing-page"
+        path="/examples-page"
         exact
-        render={props => <Landing {...props} />}
+        render={props => <Index {...props} />}
       />
       <Route path="/login-page" exact render={props => <Login {...props} />} />
       <Route
