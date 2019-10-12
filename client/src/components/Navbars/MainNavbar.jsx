@@ -21,7 +21,6 @@ import { Link } from "react-router-dom";
 import Headroom from "headroom.js";
 // reactstrap components
 import {
-  Button,
   UncontrolledCollapse,
   DropdownMenu,
   DropdownItem,
@@ -176,7 +175,7 @@ class MainNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://www.facebook.com/creativetim"
+                      href="https://www.facebook.com/"
                       id="tooltip333589074"
                       target="_blank"
                     >
@@ -192,7 +191,7 @@ class MainNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://www.instagram.com/creativetimofficial"
+                      href="https://www.instagram.com/"
                       id="tooltip356693867"
                       target="_blank"
                     >
@@ -208,7 +207,7 @@ class MainNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://twitter.com/creativetim"
+                      href="https://twitter.com/"
                       id="tooltip184698705"
                       target="_blank"
                     >
@@ -224,7 +223,7 @@ class MainNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://github.com/creativetimofficial/argon-design-system-react"
+                      href="https://github.com/leonhassing"
                       id="tooltip112445449"
                       target="_blank"
                     >
@@ -238,19 +237,18 @@ class MainNavbar extends React.Component {
                     </UncontrolledTooltip>
                   </NavItem>
                   <NavItem className="d-none d-lg-block ml-lg-4">
-                    <Button
-                      className="btn-neutral btn-icon"
+                    <Link
+                      className="btn btn-neutral btn-icon"
                       color="default"
-                      href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-navbar"
-                      target="_blank"
+                      to="/login-page"
                     >
                       <span className="btn-inner--icon">
-                        <i className="fa fa-cloud-download mr-2" />
+                        <i className="fa fa-user fa-lg mr-1" />
                       </span>
                       <span className="nav-link-inner--text ml-1">
-                        Download
+                        Login
                       </span>
-                    </Button>
+                    </Link>
                   </NavItem>
                 </Nav>
               </UncontrolledCollapse>

@@ -133,14 +133,14 @@ class Landing extends React.Component {
             <Container>
               <Row className="justify-content-center">
                   <Row className="row-grid">
-                    <Col xs="12" sm="12" lg="6">
+                    <Col lg="4">
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
                           <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
                             <i className="fa fa-map-marker" />
                           </div>
                           <h6 className="text-primary text-uppercase">
-                            1. Vul je postcode in
+                            1. Vul je gewenste datum, tijdstip en postcode in
                           </h6>
                           <p className="description mt-3">
                             Er is altijd wel een hulp in de buurt. Op de kaart kun je makkelijk zien welke hulpen er bij jou in de buurt zijn.
@@ -167,45 +167,14 @@ class Landing extends React.Component {
                         </CardBody>
                       </Card>
                     </Col>
-                    <Col xs="12" sm="12" lg="6">
-                      <Card className="card-lift--hover shadow border">
-                        <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
-                            <i className="fa fa-clock-o" />
-                          </div>
-                          <h6 className="text-info text-uppercase">
-                            2. Kies je datum en tijd
-                          </h6>
-                          <p className="description mt-3">
-                            Wel zo makkelijk dat je alleen de mensen te zijn krijgt die ook beschikbaar zijn wanneer jij dat bent.
-                          </p>
-                          <div>
-                            <Badge color="info" pill className="mr-1">
-                              praktisch
-                            </Badge>
-                            <Badge color="info" pill className="mr-1">
-                              efficient
-                            </Badge>
-                          </div>
-                          <Button
-                            className="mt-4"
-                            color="info"
-                            href="#pablo"
-                            onClick={e => e.preventDefault()}
-                          >
-                            Lees verder
-                          </Button>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                    <Col xs="12" sm="12" lg="6">
+                    <Col lg="4">
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
                           <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
                             <i className="fa fa-mouse-pointer" />
                           </div>
                           <h6 className="text-warning text-uppercase">
-                            3. Kies de hulp die het best bij je past
+                            2. Kies de hulp die het best bij je past
                           </h6>
                           <p className="description mt-3">
                             Je kunt de profielen van de hulpen bekijken en ook de beschikbare reviews lezen. Zo weet je snel welke hulp het best bij je past.
@@ -215,7 +184,7 @@ class Landing extends React.Component {
                               persoonlijk
                             </Badge>
                             <Badge color="warning" pill className="mr-1">
-                              eerlijke reviews
+                              reviews
                             </Badge>
                             <Badge color="warning" pill className="mr-1">
                               eigen keus
@@ -232,14 +201,14 @@ class Landing extends React.Component {
                         </CardBody>
                       </Card>
                     </Col>
-                    <Col xs="12" sm="12" lg="6">
+                    <Col lg="4">
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
                           <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                             <i className="fa fa-mouse-pointer" />
                           </div>
                           <h6 className="text-success text-uppercase">
-                            4. Betaal en geniet!
+                            3. Betaal en geniet!
                           </h6>
                           <p className="description mt-3">
                             Je kunt makkelijk via het platform betalen, zo weet je zeker dat alles veilig verloopt. De hulp ontvangt zijn betaling zodra de klus geklaard is.
