@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import Headroom from "headroom.js";
 // reactstrap components
 import {
+  Button,
   UncontrolledCollapse,
   DropdownMenu,
   DropdownItem,
@@ -57,7 +58,7 @@ class MainNavbar extends React.Component {
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
                 <img
                   alt="..."
-                  src={require("assets/img/brand/argon-react-white.png")}
+                  src={require("assets/img/brand/woezo-white-logo.png")}
                 />
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
@@ -86,61 +87,41 @@ class MainNavbar extends React.Component {
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Components</span>
+                      <span className="nav-link-inner--text">Begin nu</span>
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-xl">
                       <div className="dropdown-menu-inner">
                         <Media
                           className="d-flex align-items-center"
-                          href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/overview?ref=adsr-navbar"
-                          target="_blank"
-                        >
-                          <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                            <i className="ni ni-spaceship" />
-                          </div>
-                          <Media body className="ml-3">
-                            <h6 className="heading text-primary mb-md-1">
-                              Getting started
-                            </h6>
-                            <p className="description d-none d-md-inline-block mb-0">
-                              Learn how to use Argon compiling Scss, change
-                              brand colors and more.
-                            </p>
-                          </Media>
-                        </Media>
-                        <Media
-                          className="d-flex align-items-center"
-                          href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/colors?ref=adsr-navbar"
-                          target="_blank"
-                        >
-                          <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
-                            <i className="ni ni-palette" />
-                          </div>
-                          <Media body className="ml-3">
-                            <h6 className="heading text-primary mb-md-1">
-                              Foundation
-                            </h6>
-                            <p className="description d-none d-md-inline-block mb-0">
-                              Learn more about colors, typography, icons and the
-                              grid system we used for Argon.
-                            </p>
-                          </Media>
-                        </Media>
-                        <Media
-                          className="d-flex align-items-center"
-                          href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/alert?ref=adsr-navbar"
-                          target="_blank"
+                          to="/landing-page" 
+                          tag={Link}
                         >
                           <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                            <i className="ni ni-ui-04" />
+                            <i className="fa fa-search" />
                           </div>
                           <Media body className="ml-3">
-                            <h5 className="heading text-warning mb-md-1">
-                              Components
-                            </h5>
+                            <h6 className="heading text-primary mb-md-1">
+                              Vind hulp
+                            </h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Browse our 50 beautiful handcrafted components
-                              offered in the Free version.
+                              Er is altijd wel iemand in de buurt.
+                            </p>
+                          </Media>
+                        </Media>
+                        <Media
+                          className="d-flex align-items-center"
+                          to="/landing-page"
+                          tag={Link}
+                        >
+                          <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
+                            <i className="fa fa-hand-paper-o" />
+                          </div>
+                          <Media body className="ml-3">
+                            <h6 className="heading text-primary mb-md-1">
+                              Bied hulp
+                            </h6>
+                            <p className="description d-none d-md-inline-block mb-0">
+                              Help anderen en bepaal zelf je loon.
                             </p>
                           </Media>
                         </Media>
@@ -150,23 +131,23 @@ class MainNavbar extends React.Component {
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Examples</span>
+                      <span className="nav-link-inner--text">Info</span>
                     </DropdownToggle>
                     <DropdownMenu>
                       <DropdownItem to="/landing-page" tag={Link}>
-                        Landing
+                        F.A.Q.
                       </DropdownItem>
                       <DropdownItem to="/profile-page" tag={Link}>
-                        Profile
+                        Prijzen
                       </DropdownItem>
                       <DropdownItem to="/login-page" tag={Link}>
-                        Login
+                        Ondersteuning
                       </DropdownItem>
                       <DropdownItem to="/register-page" tag={Link}>
-                        Register
+                        Over ons
                       </DropdownItem>
                       <DropdownItem to="/examples-page" tag={Link}>
-                        Examples
+                        Contact
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
@@ -237,10 +218,11 @@ class MainNavbar extends React.Component {
                     </UncontrolledTooltip>
                   </NavItem>
                   <NavItem className="d-none d-lg-block ml-lg-4">
-                    <Link
+                    <Button
                       className="btn btn-neutral btn-icon"
                       color="default"
                       to="/login-page"
+                      tag={Link}
                     >
                       <span className="btn-inner--icon">
                         <i className="fa fa-user fa-lg mr-1" />
@@ -248,7 +230,7 @@ class MainNavbar extends React.Component {
                       <span className="nav-link-inner--text ml-1">
                         Login
                       </span>
-                    </Link>
+                    </Button>
                   </NavItem>
                 </Nav>
               </UncontrolledCollapse>

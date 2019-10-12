@@ -99,7 +99,7 @@ class Landing extends React.Component {
                           href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
                         >
                           <span className="btn-inner--icon mr-1">
-                          <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                          <i className="fa fa-hand-paper-o" aria-hidden="true"></i>
                           </span>
                           <span className="btn-inner--text">
                             Bied hulp
