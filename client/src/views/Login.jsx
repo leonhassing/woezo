@@ -74,13 +74,11 @@ class Login extends React.Component {
    }
 
   handleFormSubmit(e) {
-    console.log("Going to do API call now");
     e.preventDefault();
 
     let userData = this.state.loginUser;
     var loginApi = "http://localhost:5000/api/users/login";
 
-    console.log("Going to do API call now");
     fetch(loginApi,{
       method: "POST",
       body: JSON.stringify(userData),
@@ -90,12 +88,11 @@ class Login extends React.Component {
       },
     }).then(response => {
       response.json().then(data =>{
-        console.log("Successful:");
         console.log(data);
       })
   })
 
-  }   
+  }
 
   handleClearForm(e) {
       e.preventDefault();
@@ -170,7 +167,7 @@ class Login extends React.Component {
                       <div className="text-center text-muted mb-4">
                         <small>Or sign in with credentials</small>
                       </div>
-                      <Form role="form">
+                      <Form role="form" onSubmit={this.handleFormSubmit}>
                         <FormGroup className="mb-3">
                           <InputGroup className="input-group-alternative">
                             <InputGroupAddon addonType="prepend">
