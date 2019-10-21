@@ -74,6 +74,7 @@ class Login extends React.Component {
    }
 
   handleFormSubmit(e) {
+    console.log("Going to do API call now");
     e.preventDefault();
 
     let userData = this.state.loginUser;
@@ -81,17 +82,18 @@ class Login extends React.Component {
 
     console.log("Going to do API call now");
     fetch(loginApi,{
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }).then(response => {
-        response.json().then(data =>{
-          console.log("Successful:");
-          console.log(data);
-        })
-    })
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }).then(response => {
+      response.json().then(data =>{
+        console.log("Successful:");
+        console.log(data);
+      })
+  })
 
   }   
 
