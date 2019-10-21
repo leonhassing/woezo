@@ -39,6 +39,71 @@ import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loginUser: {
+        email: '',
+        password: ''
+        },
+
+    }
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
+  }
+
+  /* This lifecycle hook gets executed when the component mounts */
+
+  handleEmail(e) {
+    let value = e.target.value;
+    this.setState( prevState => ({ loginUser : 
+         {...prevState.loginUser, email: value
+         }
+       }), () => console.log(this.state.loginUser))
+   }
+
+  handlePassword(e) {
+    let value = e.target.value;
+    this.setState( prevState => ({ loginUser : 
+         {...prevState.loginUser, password: value
+         }
+       }), () => console.log(this.state.loginUser))
+   }
+
+  handleFormSubmit(e) {
+    e.preventDefault();
+
+    let userData = this.state.loginUser;
+    var loginApi = "http://localhost:5000/api/users/login";
+
+    console.log("Going to do API call now");
+    fetch(loginApi,{
+        method: "POST",
+        body: JSON.stringify(userData),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(response => {
+        response.json().then(data =>{
+          console.log("Successful:");
+          console.log(data);
+        })
+    })
+
+  }   
+
+  handleClearForm(e) {
+      e.preventDefault();
+      this.setState({ 
+        loginUser: {
+          email: '',
+          password: ''
+        },
+      })
+  }
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -111,7 +176,14 @@ class Login extends React.Component {
                                 <i className="ni ni-email-83" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Email" type="email" />
+                            <Input 
+                              placeholder="Email"
+                              name="email"
+                              id="email"
+                              type="email"
+                              autoComplete="off"
+                              onChange = {this.handleEmail}
+                            />
                           </InputGroup>
                         </FormGroup>
                         <FormGroup>
@@ -124,28 +196,18 @@ class Login extends React.Component {
                             <Input
                               placeholder="Password"
                               type="password"
+                              name="password"
+                              id="password"
                               autoComplete="off"
+                              onChange = {this.handlePassword}
                             />
                           </InputGroup>
-                        </FormGroup>
-                        <div className="custom-control custom-control-alternative custom-checkbox">
-                          <input
-                            className="custom-control-input"
-                            id=" customCheckLogin"
-                            type="checkbox"
-                          />
-                          <label
-                            className="custom-control-label"
-                            htmlFor=" customCheckLogin"
-                          >
-                            <span>Remember me</span>
-                          </label>
-                        </div>
+                        </FormGroup>  
                         <div className="text-center">
                           <Button
                             className="my-4"
                             color="primary"
-                            type="button"
+                            type="submit"
                           >
                             Sign in
                           </Button>
