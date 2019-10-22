@@ -15,6 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+// const jwt = require('jsonwebtoken');
+
 import React from "react";
 
 // reactstrap components
@@ -37,6 +40,11 @@ import {
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
+
+import setAuthToken from "components/auth/setAuthToken"
+import jwt_decode from 'jwt-decode';
+import {setCurrentUser} from "components/auth/authActions"
+import GET_ERRORS from './types';
 
 class Login extends React.Component {
   constructor(props) {
@@ -86,12 +94,25 @@ class Login extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-    }).then(response => {
-      response.json().then(data =>{
-        console.log(data);
+    })
+    .then(res => {
+      // Save to localStorage
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
       })
-  })
-
+    );
   }
 
   handleClearForm(e) {

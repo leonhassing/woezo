@@ -30,8 +30,8 @@ import Profile from "views/Profile.jsx";
 import Register from "views/Register.jsx";
 
 import jwt_decode from 'jwt-decode';
-import setAuthToken from './components/utils/setAuthToken';
-import { setCurrentUser, logoutUser } from './actions/authActions';
+import setAuthToken from './components/auth/setAuthToken';
+import { setCurrentUser, logoutUser } from './components/auth/authActions';
 // import { Provider } from 'react-redux';
 import store from './store';
 // import RegisterUser from './components/auth/RegisterUser';
