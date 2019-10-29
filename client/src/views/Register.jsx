@@ -37,6 +37,7 @@ import {
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
+import {loginUser} from "../actions/authActions";
 
 class Register extends React.Component {
   constructor(props) {
@@ -110,6 +111,7 @@ class Register extends React.Component {
         response.json().then(data =>{
           console.log("Successful:");
           console.log(data);
+          loginUser(userData);
         })
     })
 

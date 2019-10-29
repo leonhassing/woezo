@@ -24,16 +24,29 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import store from '../store'
+import {logoutUser} from "../actions/authActions"
 
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      profile: {},
+    }
+    this.handleLogout = this.handleLogout.bind(this);
+  }
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
-  render() {
 
+  handleLogout(e) {
+    e.preventDefault();
+    logoutUser();
+  }
+  render() {
   var reduxState = store.getState();
   var name = reduxState.auth.user.name;
 
@@ -103,10 +116,10 @@ class Profile extends React.Component {
                           className="float-right"
                           color="default"
                           href="#pablo"
-                          onClick={e => e.preventDefault()}
+                          onClick={this.handleLogout}
                           size="sm"
                         >
-                          Message
+                          Logout
                         </Button>
                       </div>
                     </Col>
