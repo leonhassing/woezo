@@ -1,16 +1,17 @@
 import axios from 'axios';
-import setAuthToken from './setAuthToken';
+import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
+import store from '../store'
 
 import { GET_ERRORS, SET_CURRENT_USER } from './types';
 
 // Register User
-export const registerUser = (userData, history) => dispatch => {
+export const registerUser = (userData, history) => {
   axios
-    .post('/api/users/register', userData)
-    .then(res => history.push('/login'))
+    .post('http://localhost:5000/api/users/register', userData)
+    .then(res => history.push('/login-page'))
     .catch(err =>
-      dispatch({
+      store.dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
@@ -18,9 +19,9 @@ export const registerUser = (userData, history) => dispatch => {
 };
 
 // Login - Get User Token
-export const loginUser = userData => dispatch => {
+export function loginUser(userData) {
   axios
-    .post('/api/users/login', userData)
+    .post('http://localhost:5000/api/users/login', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;
@@ -31,14 +32,14 @@ export const loginUser = userData => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
-      dispatch(setCurrentUser(decoded));
+      store.dispatch(setCurrentUser(decoded));
+      window.location.replace("/profile-page");
     })
-    .catch(err =>
-      dispatch({
+    .catch(err=>{
+      store.dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      })})
 };
 
 // Set logged in user
@@ -56,5 +57,5 @@ export const logoutUser = () => dispatch => {
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
+  store.dispatch(setCurrentUser({}));
 };

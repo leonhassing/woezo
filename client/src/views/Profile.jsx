@@ -23,6 +23,8 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
+import store from '../store'
+
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -31,6 +33,10 @@ class Profile extends React.Component {
     this.refs.main.scrollTop = 0;
   }
   render() {
+
+  var reduxState = store.getState();
+  var name = reduxState.auth.user.name;
+
     return (
       <>
         <MainNavbar />
@@ -119,7 +125,7 @@ class Profile extends React.Component {
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
-                      Jessica Jones{" "}
+                      {name}{" "}
                       <span className="font-weight-light">, 27</span>
                     </h3>
                     <div className="h6 font-weight-300">

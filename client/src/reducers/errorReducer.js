@@ -1,4 +1,4 @@
-import { GET_ERRORS, CLEAR_ERRORS } from '../components/auth/types';
+import { GET_ERRORS, CLEAR_ERRORS } from '../actions/types';
 
 const initialState = {};
 

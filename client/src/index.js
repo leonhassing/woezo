@@ -30,9 +30,9 @@ import Profile from "views/Profile.jsx";
 import Register from "views/Register.jsx";
 
 import jwt_decode from 'jwt-decode';
-import setAuthToken from './components/auth/setAuthToken';
-import { setCurrentUser, logoutUser } from './components/auth/authActions';
-// import { Provider } from 'react-redux';
+import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser, logoutUser } from './actions/authActions';
+import { Provider } from 'react-redux';
 import store from './store';
 // import RegisterUser from './components/auth/RegisterUser';
 // import LoginUser from './components/auth/LoginUser';
@@ -53,32 +53,34 @@ if (localStorage.jwtToken) {
     // Logout user
     store.dispatch(logoutUser());
     // Redirect to login
-    window.location.href = '/login';
+    window.location.href = '/login-page';
   }
 }
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" exact render={props => <Landing {...props} />} />
-      <Route
-        path="/examples-page"
-        exact
-        render={props => <Index {...props} />}
-      />
-      <Route path="/login-page" exact render={props => <Login {...props} />} />
-      <Route
-        path="/profile-page"
-        exact
-        render={props => <Profile {...props} />}
-      />
-      <Route
-        path="/register-page"
-        exact
-        render={props => <Register {...props} />}
-      />
-      <Redirect to="/" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact render={props => <Landing {...props} />} />
+        <Route
+          path="/examples-page"
+          exact
+          render={props => <Index {...props} />}
+        />
+        <Route path="/login-page" exact render={props => <Login {...props} />} />
+        <Route
+          path="/profile-page"
+          exact
+          render={props => <Profile {...props} />}
+        />
+        <Route
+          path="/register-page"
+          exact
+          render={props => <Register {...props} />}
+        />
+        <Redirect to="/" />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
