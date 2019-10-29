@@ -75,7 +75,7 @@ class Landing extends React.Component {
                         <Button
                           className="btn-icon mb-3 mb-sm-0"
                           color="info"
-                          href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/alerts?ref=adsr-landing-page"
+                          href="/search-page"
                         >
                           <span className="btn-inner--icon mr-1">
                             <i className="fa fa-search" />
@@ -120,7 +120,7 @@ class Landing extends React.Component {
             </section>
             {/* 1st Hero Variation */}
           </div>
-          <section className="section section-lg pt-lg-0 mt--200">
+          <section className="section section-lg pt-lg-0 mt--200">x§
             <Container>
               <Row className="justify-content-center">
                   <Row className="row-grid">

@@ -17,6 +17,7 @@
 */
 import React from "react";
 import { Link } from "react-router-dom";
+import store from '../../store'
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
 // reactstrap components
@@ -46,6 +47,10 @@ class MainNavbar extends React.Component {
     headroom.init();
   }
   render() {
+
+    var reduxState = store.getState();
+    var isLogged = reduxState.auth.isAuthenticated;
+
     return (
       <>
         <header className="header-global">
@@ -221,14 +226,14 @@ class MainNavbar extends React.Component {
                     <Button
                       className="btn btn-neutral btn-icon"
                       color="default"
-                      to="/login-page"
+                      to={isLogged ? "/profile-page" : "/login-page"}
                       tag={Link}
                     >
                       <span className="btn-inner--icon">
                         <i className="fa fa-user fa-lg mr-1" />
                       </span>
                       <span className="nav-link-inner--text ml-1">
-                        Login
+                        {isLogged ? "Profile" : "Login"}
                       </span>
                     </Button>
                   </NavItem>
