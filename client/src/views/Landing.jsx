@@ -97,6 +97,7 @@ class Landing extends React.Component {
                           </span>
                         </Button>
                       </div>
+                      <img src="/assets/icons/cat.png"/>
                     </Col>
                   </Row>
                 </div>
@@ -120,22 +121,20 @@ class Landing extends React.Component {
             </section>
             {/* 1st Hero Variation */}
           </div>
-          <section className="section section-lg pt-lg-0 mt--200">x§
+          <section className="section section-lg pt-lg-0 mt--200">
             <Container>
               <Row className="justify-content-center">
                   <Row className="row-grid">
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                            <i className="fa fa-map-marker" />
+                          <div className="icon icon-shape icon-shape-primary rounded mb-4">
+                            <i className="fa fa-5x fa-calendar" />
                           </div>
+                          <i className="fa fa-5x fa-calendar"/>
                           <h6 className="text-primary text-uppercase">
-                            1. Vul je gewenste datum, tijdstip en postcode in
+                            Vul je gewenste datum, tijdstip en postcode in
                           </h6>
-                          <p className="description mt-3">
-                            Er is altijd wel een hulp in de buurt. Op de kaart kun je makkelijk zien welke hulpen er bij jou in de buurt zijn.
-                          </p>
                           <div>
                             <Badge color="primary" pill className="mr-1">
                               makkelijk
@@ -161,15 +160,9 @@ class Landing extends React.Component {
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                            <i className="fa fa-mouse-pointer" />
-                          </div>
                           <h6 className="text-warning text-uppercase">
-                            2. Kies de hulp die het best bij je past
+                            Kies de hulp die het best bij je past
                           </h6>
-                          <p className="description mt-3">
-                            Je kunt de profielen van de hulpen bekijken en ook de beschikbare reviews lezen. Zo weet je snel welke hulp het best bij je past.
-                          </p>
                           <div>
                             <Badge color="warning" pill className="mr-1">
                               persoonlijk
@@ -195,15 +188,10 @@ class Landing extends React.Component {
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                            <i className="fa fa-mouse-pointer" />
-                          </div>
                           <h6 className="text-success text-uppercase">
-                            3. Betaal en geniet!
+                            Betaal en geniet!
                           </h6>
-                          <p className="description mt-3">
-                            Je kunt makkelijk via het platform betalen, zo weet je zeker dat alles veilig verloopt. De hulp ontvangt zijn betaling zodra de klus geklaard is.
-                          </p>
+                          <br/>
                           <div>
                             <Badge color="success" pill className="mr-1">
                               veilig

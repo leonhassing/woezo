@@ -29,6 +29,7 @@ import Login from "views/Login.jsx";
 import Profile from "views/Profile.jsx";
 import Register from "views/Register.jsx";
 import Search from "views/Search.jsx";
+import Browse from "views/Browse.jsx";
 
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
@@ -83,6 +84,11 @@ ReactDOM.render(
           path="/search-page"
           exact
           render={props => <Search {...props} />}
+        />
+        <Route
+          path="/browse-page"
+          exact
+          render={props => <Browse {...props} />}
         />
         <Redirect to="/" />
       </Switch>

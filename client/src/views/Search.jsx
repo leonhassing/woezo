@@ -19,6 +19,7 @@ import React from "react";
 
 // reactstrap components
 import {
+  Button,
   Container,
   Form,
   FormGroup,
@@ -33,9 +34,12 @@ import {
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
+import "../assets/css/custom-additions.css"
+import catLogo from '../assets/img/icons/cat.png'
+import tutorLogo from '../assets/img/icons/books.png'
 
 
-class Profile extends React.Component {
+class Search extends React.Component {
   constructor(props) {
     super(props);
 
@@ -83,68 +87,132 @@ class Profile extends React.Component {
             </div>
           </section>
           <section className="section">
-            <Container>
-              <Form>
-                <Row>
-                  <Col md="6">
-                    <FormGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fa fa-map-marker" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input placeholder="Adres" type="text" />
-                      </InputGroup>
-                    </FormGroup>
-                    <FormGroup tag="fieldset">
-                      <legend>Radio Buttons</legend>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" name="radio1" />{' '}
-                          Option one is this and that—be sure to include why it's great
-                        </Label>
+            <div className="py-5 bg-secondary">
+              <Container>
+                <Form>
+                  <Row>
+                    <Col md="2"/>
+                    <Col md="8">
+                      <h4 className="mb-3">
+                        <span>Waar woon je?</span>
+                      </h4>
+                      <FormGroup>
+                        <InputGroup className="mb-4">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fa fa-map-marker" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input placeholder="Adres" type="text" />
+                        </InputGroup>
                       </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" name="radio1" />{' '}
-                          Option two can be something else and selecting it will deselect option one
-                        </Label>
-                      </FormGroup>
-                      <FormGroup check disabled>
-                        <Label check>
-                          <Input type="radio" name="radio1" disabled />{' '}
-                          Option three is disabled
-                        </Label>
-                      </FormGroup>
-                    </FormGroup>
-                    <div className="custom-control custom-radio mb-3">
-                      <input
-                        className="custom-control-input"
-                        id="customRadio5"
-                        name="custom-radio-2"
-                        type="radio"
-                      />
-                      <label className="custom-control-label" htmlFor="customRadio5">
-                        Unchecked
-                      </label>
-                    </div>
-                    <div className="custom-control custom-radio mb-3">
-                      <input
-                        className="custom-control-input"
-                        defaultChecked
-                        id="customRadio6"
-                        name="custom-radio-2"
-                        type="radio"
-                      />
-                      <label className="custom-control-label" htmlFor="customRadio6">
-                        Checked
-                      </label>
-                    </div>   
-                  </Col>
-                </Row>
-              </Form>
-            </Container>
+                      <h4 className="mb-3">
+                        <span>Wat zoek je?</span>
+                      </h4>   
+                    </Col>
+                    <Col md="2"/>
+                  </Row>
+                  <Row>
+                    <Col md="2"/>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={catLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={tutorLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={catLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={tutorLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col md="2"/>
+                  </Row>
+                  <Row>
+                    <Col md="2"/>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={catLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={tutorLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={catLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col sm="6" md="2" lg="2">
+                      <div class="radio btn">
+                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
+                          <p className="mb-2">
+                            <span>Bijles</span>
+                          </p>
+                          <img src={tutorLogo} className="custom-logo"/>
+                      </div>
+                    </Col>
+                    <Col md="2"/>
+                  </Row>
+                  <Row>
+                    <Col md="2"/>
+                    <Col sm="6" md="2" lg="2">
+                    <Button
+                      className="btn-white btn-icon mb-3 mb-sm-0 ml-1"
+                      color="default"
+                      href="/browse-page"
+                    >
+                      <span className="btn-inner--icon mr-1">
+                      <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                      </span>
+                      <span className="btn-inner--text">
+                        Vind nu!
+                      </span>
+                    </Button>
+                    </Col>
+                    <Col md="2"/>
+                  </Row>
+                </Form>
+              </Container>
+            </div>
           </section>
         </main>
         <SimpleFooter />
@@ -153,4 +221,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default Search;

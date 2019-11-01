@@ -152,7 +152,7 @@ class MainNavbar extends React.Component {
                         Over ons
                       </DropdownItem>
                       <DropdownItem to="/examples-page" tag={Link}>
-                        Contact
+                        Voorbeelden
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
