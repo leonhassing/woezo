@@ -98,7 +98,7 @@ class MainNavbar extends React.Component {
                       <div className="dropdown-menu-inner">
                         <Media
                           className="d-flex align-items-center"
-                          to="/landing-page" 
+                          to="/search-page"
                           tag={Link}
                         >
                           <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
