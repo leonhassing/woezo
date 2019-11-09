@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/creativetimofficial/argon-design-system-react/issues"
   },
-  "homepage": "https://woezowebapp.azurewebsites.net/",
+  "homepage": "https://www.woezo.nl/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
