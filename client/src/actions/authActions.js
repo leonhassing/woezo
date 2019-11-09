@@ -6,10 +6,20 @@ import store from '../store'
 import { GET_ERRORS, SET_CURRENT_USER } from './types';
 
 // Register User
-export const registerUser = (userData, history) => {
+export const registerUser = (userData, instantLogin) => {
+
+  var registerApi = window.location.protocol + "//" + window.location.hostname + "/api/users/register";
+
   axios
-    .post('http://localhost:5000/api/users/register', userData)
-    .then(res => history.push('/login-page'))
+    .post(registerApi, userData)
+    .then(response => {
+      response.json().then(data =>{
+        console.log("Successful registration:");
+        console.log(data);
+        if(instantLogin){
+          loginUser(userData);
+        }
+      })
     .catch(err =>
       store.dispatch({
         type: GET_ERRORS,
@@ -20,8 +30,11 @@ export const registerUser = (userData, history) => {
 
 // Login - Get User Token
 export function loginUser(userData) {
+
+  var loginApi = window.location.protocol + "//" + window.location.hostname + "/api/users/login";
+
   axios
-    .post('http://localhost:5000/api/users/login', userData)
+    .post(loginApi, userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;

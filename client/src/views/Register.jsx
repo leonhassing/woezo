@@ -38,6 +38,7 @@ import {
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import {loginUser} from "../actions/authActions";
+import {registerUser} from "../actions/authActions";
 
 class Register extends React.Component {
   constructor(props) {
@@ -98,23 +99,8 @@ class Register extends React.Component {
     e.preventDefault();
 
     let userData = this.state.newUser;
-    var registerApi = window.location.protocol + "//" + window.location.hostname + ":5000/api/users/register";
 
-    fetch(registerApi,{
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      }).then(response => {
-        response.json().then(data =>{
-          console.log("Successful:");
-          console.log(data);
-          loginUser(userData);
-        })
-    })
-
+    registerUser(userData, true);
   }   
 
   handleClearForm(e) {
