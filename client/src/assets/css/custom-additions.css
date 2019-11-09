@@ -1,22 +1,49 @@
-/* HIDE RADIO */
-[type=radio] { 
-position: absolute;
-opacity: 0;
-width: 0;
-height: 0;
-}
-
-/* IMAGE STYLES */
-[type=radio] + img {
-cursor: pointer;
-}
-
-/* CHECKED STYLES */
-[type=radio]:checked + img {
-outline: 2px solid #f00;
-}
-
 .custom-logo {
     width: 100px;
-    height: 100px;
 }
+
+.radio-hide input{
+    margin:0;padding:0;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+.cat{background-image:url("../img/icons/cat.png");}
+.tutor{background-image:url("../img/icons/books.png");}
+.baby{background-image:url("../img/icons/baby.png");}
+.cleaning{background-image:url("../img/icons/cleaning.png");}
+.dog{background-image:url("../img/icons/dog.png");}
+.it{background-image:url("../img/icons/it.png");}
+.garden{background-image:url("../img/icons/garden.png");}
+.handy{background-image:url("../img/icons/handy.png");}
+.music{background-image:url("../img/icons/music.png");}
+
+.radio-hide input:active +.radio-img{opacity: 1.0;}
+.radio-hide input:checked +.radio-img{
+    -webkit-filter: none;
+       -moz-filter: none;
+            filter: none;
+}
+.radio-img{
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:130px;height:100px;
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.0) grayscale(0.4) opacity(0.6);
+       -moz-filter: brightness(1.0) grayscale(0.4) opacity(0.6);
+            filter: brightness(1.0) grayscale(0.4) opacity(0.6);
+}
+.radio-img:hover{
+    -webkit-filter: brightness(1.2) grayscale(0.2) opacity(1.0);
+       -moz-filter: brightness(1.2) grayscale(0.2) opacity(1.0);
+            filter: brightness(1.2) grayscale(0.2) opacity(1.0);
+}
+
+/* Extras */
+a:visited{color:#888}
+a{color:#444;text-decoration:none;}
+p{margin-bottom:.3em;}

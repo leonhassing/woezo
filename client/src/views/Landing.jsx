@@ -73,31 +73,30 @@ class Landing extends React.Component {
                       </p>
                       <div className="btn-wrapper">
                         <Button
-                          className="btn-icon mb-3 mb-sm-0"
-                          color="info"
+                          className="btn-1 btn-icon mb-3 mb-sm-0"
+                          color="primary"
                           href="/search-page"
                         >
-                          <span className="btn-inner--icon mr-1">
+                          <span className="btn-inner--icon mr-1 text-white">
                             <i className="fa fa-search" />
                           </span>
-                          <span className="btn-inner--text">
+                          <span className="btn-inner--text text-white">
                             Vind hulp
                           </span>
                         </Button>
                         <Button
-                          className="btn-white btn-icon mb-3 mb-sm-0 ml-1"
-                          color="default"
+                          className="btn-1 btn-icon mb-3 mb-sm-0 ml-1"
+                          color="info"
                           href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
                         >
-                          <span className="btn-inner--icon mr-1">
+                          <span className="btn-inner--icon mr-1 text-white">
                           <i className="fa fa-hand-paper-o" aria-hidden="true"></i>
                           </span>
-                          <span className="btn-inner--text">
+                          <span className="btn-inner--text text-white">
                             Bied hulp
                           </span>
                         </Button>
                       </div>
-                      <img src="/assets/icons/cat.png"/>
                     </Col>
                   </Row>
                 </div>
@@ -128,12 +127,8 @@ class Landing extends React.Component {
                     <Col lg="4">
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
-                          <div className="icon icon-shape icon-shape-primary rounded mb-4">
-                            <i className="fa fa-5x fa-calendar" />
-                          </div>
-                          <i className="fa fa-5x fa-calendar"/>
                           <h6 className="text-primary text-uppercase">
-                            Vul je gewenste datum, tijdstip en postcode in
+                            1. Vul je gewenste datum, tijdstip en postcode in
                           </h6>
                           <div>
                             <Badge color="primary" pill className="mr-1">
@@ -161,7 +156,7 @@ class Landing extends React.Component {
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
                           <h6 className="text-warning text-uppercase">
-                            Kies de hulp die het best bij je past
+                            2. Kies de hulp die het best bij je past
                           </h6>
                           <div>
                             <Badge color="warning" pill className="mr-1">
@@ -189,7 +184,7 @@ class Landing extends React.Component {
                       <Card className="card-lift--hover shadow border">
                         <CardBody className="py-5">
                           <h6 className="text-success text-uppercase">
-                            Betaal en geniet!
+                            3. Betaal en geniet!
                           </h6>
                           <br/>
                           <div>

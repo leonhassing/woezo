@@ -19,22 +19,15 @@ import React from "react";
 
 // reactstrap components
 import {
-  Button,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Label,
   Row,
   Col
 } from "reactstrap";
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-
+import BrowseProfiles from "components/BrowseProfiles.jsx";
+import BrowseFilter from "components/BrowseFilter.jsx";
+import BrowseMap from "components/BrowseMap.jsx";
 
 class Browse extends React.Component {
   constructor(props) {
@@ -54,42 +47,34 @@ class Browse extends React.Component {
     return (
       <>
         <MainNavbar />
-        <main className="search-page" ref="main">
-          <section className="section section-shaped">
-            {/* Circles background */}
-            <div className="shape shape-style-1 shape-default alpha-4">
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-            {/* SVG separator */}
-            <div className="separator separator-bottom separator-skew">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-              >
-                <polygon
-                  className="fill-white"
-                  points="2560 0 2560 100 0 100"
-                />
-              </svg>
-            </div>
-          </section>
-          <section className="section">
-            <div className="py-5 bg-secondary">
-              <Container>
-                <h4 className="mb-3">
-                  <span>Browse</span>
-                </h4>
-              </Container>
+        <main ref="main">
+          <div className="position-relative">
+            {/* shape Hero */}
+            <section className="section section-shaped pb-4">
+              <div className="shape shape-style-1 shape-default">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+            </section>
+          </div>
+          <section className="section pt-4">
+            <div class="px-4">
+                  <BrowseFilter />
+                <Row>
+                  <Col className="pr-0" md="4">
+                    <BrowseProfiles />
+                  </Col>
+                  <Col className="pl-1" md="8">
+                    <BrowseMap />
+                  </Col>
+                </Row>
             </div>
           </section>
         </main>

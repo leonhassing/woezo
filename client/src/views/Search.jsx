@@ -27,7 +27,6 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Label,
   Row,
   Col
 } from "reactstrap";
@@ -35,8 +34,6 @@ import {
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import "../assets/css/custom-additions.css"
-import catLogo from '../assets/img/icons/cat.png'
-import tutorLogo from '../assets/img/icons/books.png'
 
 
 class Search extends React.Component {
@@ -44,9 +41,51 @@ class Search extends React.Component {
     super(props);
 
     this.state = {
-      searchQuery: {},
+      searchQuery: {
+        location:'',
+        service:''
+      },
+
     }
+    this.handleLocation = this.handleLocation.bind(this);
+    this.handleService = this.handleService.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
   }
+
+  handleLocation(e) {
+    let value = e.target.value;
+    this.setState( prevState => ({ searchQuery : 
+         {...prevState.searchQuery, location: value
+         }
+       }), () => console.log(this.state.searchQuery))
+   }
+
+  handleService(e) {
+    let value = e.target.value;
+    this.setState( prevState => ({ searchQuery : 
+         {...prevState.searchQuery, service: value
+         }
+       }), () => console.log(this.state.searchQuery))
+   }
+
+  handleFormSubmit(e) {
+      e.preventDefault();
+      let searchLocation = this.state.searchQuery.location;
+      let searchService = this.state.searchQuery.service;
+      let searchURL = "/browse-page?location=" + searchLocation + "&service=" + searchService;
+      window.location.replace(searchURL);
+  }
+
+  handleClearForm(e) {
+      e.preventDefault();
+      this.setState({ 
+        loginUser: {
+          email: '',
+          password: ''
+        },
+      })
+    }
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -57,39 +96,26 @@ class Search extends React.Component {
     return (
       <>
         <MainNavbar />
-        <main className="search-page" ref="main">
-          <section className="section section-shaped">
-            {/* Circles background */}
-            <div className="shape shape-style-1 shape-default alpha-4">
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-            {/* SVG separator */}
-            <div className="separator separator-bottom separator-skew">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-              >
-                <polygon
-                  className="fill-white"
-                  points="2560 0 2560 100 0 100"
-                />
-              </svg>
-            </div>
-          </section>
+        <main ref="main">
+          <div className="position-relative">
+            {/* shape Hero */}
+            <section className="section section-shaped pb-4">
+              <div className="shape shape-style-1 shape-default">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+            </section>
+          </div>
           <section className="section">
-            <div className="py-5 bg-secondary">
               <Container>
-                <Form>
+                <Form role="form" onSubmit={this.handleFormSubmit}>
                   <Row>
                     <Col md="2"/>
                     <Col md="8">
@@ -97,7 +123,7 @@ class Search extends React.Component {
                         <span>Waar woon je?</span>
                       </h4>
                       <FormGroup>
-                        <InputGroup className="mb-4">
+                        <InputGroup className="mb-4" onChange = {this.handleLocation}>
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
                               <i className="fa fa-map-marker" />
@@ -112,93 +138,99 @@ class Search extends React.Component {
                     </Col>
                     <Col md="2"/>
                   </Row>
-                  <Row>
-                    <Col md="2"/>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={catLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={tutorLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={catLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={tutorLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col md="2"/>
-                  </Row>
-                  <Row>
-                    <Col md="2"/>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={catLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={tutorLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={catLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col sm="6" md="2" lg="2">
-                      <div class="radio btn">
-                          <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4" checked/>
-                          <p className="mb-2">
-                            <span>Bijles</span>
-                          </p>
-                          <img src={tutorLogo} className="custom-logo"/>
-                      </div>
-                    </Col>
-                    <Col md="2"/>
-                  </Row>
+                  <div className="radio-hide">
+                    <Row>
+                      <Col xs="6" md={{ size: 3, offset: 2 }}>
+                        <small className="text-uppercase font-weight-bold">
+                          Schoonmaak
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="cleaning" type="radio" name="service-type" value="cleaning" onChange = {this.handleService}/>
+                        <label className="radio-img cleaning" htmlFor="cleaning"></label>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <small className="text-uppercase font-weight-bold">
+                          Katoppas
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="cat" type="radio" name="service-type" value="cat" onChange = {this.handleService}/>
+                        <label className="radio-img cat" htmlFor="cat"></label>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <small className="text-uppercase font-weight-bold">
+                          Honduitlaat
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="dog" type="radio" name="service-type" value="dog" onChange = {this.handleService}/>
+                        <label className="radio-img dog" htmlFor="dog"></label>
+                      </Col>
+                      <Col xs="6" md={{ size: 3, offset: 2 }}>
+                        <small className="text-uppercase font-weight-bold">
+                          Babysitter
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="baby" type="radio" name="service-type" value="baby" onChange = {this.handleService}/>
+                        <label className="radio-img baby" htmlFor="baby"></label>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <small className="text-uppercase font-weight-bold">
+                          Bijles
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="tutor" type="radio" name="service-type" value="tutor" onChange = {this.handleService}/>
+                        <label className="radio-img tutor" htmlFor="tutor"></label>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <small className="text-uppercase font-weight-bold">
+                          Klusjesman
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="handy" type="radio" name="service-type" value="handy" onChange = {this.handleService}/>
+                        <label className="radio-img handy" htmlFor="handy"></label>
+                      </Col>
+                      <Col xs="6" md={{ size: 3, offset: 2 }}>
+                        <small className="text-uppercase font-weight-bold">
+                          IT Hulp
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="it" type="radio" name="service-type" value="it" onChange = {this.handleService}/>
+                        <label className="radio-img it" htmlFor="it"></label>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <small className="text-uppercase font-weight-bold">
+                          Tuinier
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="garden" type="radio" name="service-type" value="garden" onChange = {this.handleService}/>
+                        <label className="radio-img garden" htmlFor="garden"></label>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <small className="text-uppercase font-weight-bold">
+                          Muziekles
+                        </small>
+                        <br/>
+                        <br/>
+                        <input id="music" type="radio" name="service-type" value="music" onChange = {this.handleService}/>
+                        <label className="radio-img music" htmlFor="music"></label>
+                      </Col>
+                    </Row>
+                  </div>
+                  <br/>
                   <Row>
                     <Col md="2"/>
                     <Col sm="6" md="2" lg="2">
                     <Button
                       className="btn-white btn-icon mb-3 mb-sm-0 ml-1"
                       color="default"
-                      href="/browse-page"
+                      type="submit"
                     >
                       <span className="btn-inner--icon mr-1">
                       <i className="fa fa-paper-plane" aria-hidden="true"></i>
@@ -212,7 +244,6 @@ class Search extends React.Component {
                   </Row>
                 </Form>
               </Container>
-            </div>
           </section>
         </main>
         <SimpleFooter />
