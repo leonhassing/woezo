@@ -8,16 +8,27 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
 // Register User
 export const registerUser = (userData, instantLogin) => {
 
-  var registerApi = window.location.protocol + "//" + window.location.hostname + "/api/users/register";
+  if(window.location.hostname === 'localhost')
+  {
+    var registerApi = window.location.protocol + "//" + window.location.hostname + ":5000/api/users/register";
+  } else {
+    var registerApi = window.location.protocol + "//" + window.location.hostname + "/api/users/register";
+  }
+
 
   axios
     .post(registerApi, userData)
     .then(response => {
-      response.json().then(data =>{
         console.log("Successful registration:");
-        console.log(data);
-        if(instantLogin){loginUser(userData);}
-      })})
+        console.log(response);
+        if(instantLogin) {
+          let loginData = {
+            email: userData.email,
+            password: userData.password
+          }
+          loginUser(loginData);
+        }
+      })
     .catch(err =>
       store.dispatch({
         type: GET_ERRORS,
@@ -29,7 +40,12 @@ export const registerUser = (userData, instantLogin) => {
 // Login - Get User Token
 export function loginUser(userData) {
 
-  var loginApi = window.location.protocol + "//" + window.location.hostname + "/api/users/login";
+  if(window.location.hostname === 'localhost')
+  {
+    var loginApi = window.location.protocol + "//" + window.location.hostname + ":5000/api/users/login";
+  } else {
+    var loginApi = window.location.protocol + "//" + window.location.hostname + "/api/users/login";
+  }
 
   axios
     .post(loginApi, userData)

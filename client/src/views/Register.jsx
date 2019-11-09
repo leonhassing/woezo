@@ -37,7 +37,6 @@ import {
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-import {loginUser} from "../actions/authActions";
 import {registerUser} from "../actions/authActions";
 
 class Register extends React.Component {
