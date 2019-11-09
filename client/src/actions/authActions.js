@@ -16,16 +16,14 @@ export const registerUser = (userData, instantLogin) => {
       response.json().then(data =>{
         console.log("Successful registration:");
         console.log(data);
-        if(instantLogin){
-          loginUser(userData);
-        }
-      })
+        if(instantLogin){loginUser(userData);}
+      })})
     .catch(err =>
       store.dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    );
+    )
 };
 
 // Login - Get User Token
