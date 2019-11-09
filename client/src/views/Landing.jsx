@@ -144,8 +144,7 @@ class Landing extends React.Component {
                           <Button
                             className="mt-4"
                             color="primary"
-                            href="#pablo"
-                            onClick={e => e.preventDefault()}
+                            href="/search-page"
                           >
                             Begin nu
                           </Button>
