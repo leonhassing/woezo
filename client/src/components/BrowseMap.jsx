@@ -15,18 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import 'assets/css/browse-page.css'
 
-function getQueryVariable(variable) {
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  for (var i=0;i<vars.length;i++) {
-          var pair = vars[i].split("=");
-          if(pair[0] === variable){return pair[1];}
-  }
-  return(false);
-}
+import React, { Component } from 'react';
+import { Map, GoogleApiWrapper } from 'google-maps-react';
+import axios from 'axios';
 
 function getWidth() {
   return window.innerWidth;
@@ -36,60 +28,91 @@ function getHeight() {
   return window.innerHeight;
 }
 
-class BrowseMap extends React.Component {
-constructor(props) {
-  super(props);
+export class MapContainer extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      width:  800,
+      height: 600,
+      searchLocationLat: '',
+      searchLocationLng: ''
+      };
+    }
 
-  this.state = {
-    width:  800,
-    height: 600
+
+  /**
+   * Add event listener
+   */
+  componentDidMount() {
+    this.updateDimensions();
+    this.getCoordsFromLocation(this.props.location);
+    window.addEventListener("resize", this.updateDimensions.bind(this));
   }
-}
-/**
-* Calculate & Update state of new dimensions
-*/
-updateDimensions() {
+
+  /**
+  * Remove event listener
+  */
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
+  }
+
+  /**
+  * Calculate & Update state of new dimensions
+  */
+  updateDimensions() {
     let updateWidth  = getWidth();
     let updateHeight = getHeight();
-    console.log('Width:  ' +  getWidth() );
-    console.log('Height: ' + getHeight() );
     this.setState({ width: updateWidth, height: updateHeight });
-}
+  }
 
-/**
- * Add event listener
- */
-componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions.bind(this));
-}
+  getCoordsFromLocation(location) {
+    var geocodeApiQuery = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`
+    return axios
+    .get(geocodeApiQuery)
+    .then(response => {
+      const coords = {
+        lat: response.data.results[0].geometry.location.lat,
+        lng: response.data.results[0].geometry.location.lng
+      }
+      return coords
+    })
+  }
 
-/**
- * Remove event listener
- */
-componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions.bind(this));
-}
-    render() {
+  getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] === variable){return pair[1];}
+    }
+    return(false);
+  }
+  
 
-      var location = getQueryVariable("location");
-      var zoom = "15"
-      var mapURL = "https://maps.google.com/maps?q=" + location +"&t=&z=" + zoom + "&ie=UTF8&iwloc=&output=embed";
-      var mapWidth = (this.state.width / 3 ) * 2 - 26;
-      var mapHeight = this.state.height - 182;
+  render() {
 
-      let view;
-          view = (
-              <div className="browseMap gmap_canvas">
-                  <iframe title="browseMap" width={mapWidth} height={mapHeight} id="gmap_canvas" src={mapURL} frameBorder="0" scrolling="yes" marginHeight="0" marginWidth="0" >
-                  </iframe>
-              </div>
-          )
+    var mapWidth = (this.state.width / 3 ) * 2 - 26;
+    var mapHeight = this.state.height - 182;
 
-      return (
-          view
-      );
+    const mapStyles = {
+      width: mapWidth,
+      height: mapHeight
+    };
+
+    let view = <Map
+              google={this.props.google}
+              zoom={15}
+              style={mapStyles}
+              initialCenter={this.getCoordsFromLocation(this.props.location)}
+            />
+
+    return (
+      view
+    );
   }
 }
 
-export default BrowseMap;
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0'
+})(MapContainer);

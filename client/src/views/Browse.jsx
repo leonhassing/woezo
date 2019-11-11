@@ -28,6 +28,8 @@ import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import BrowseProfiles from "components/BrowseProfiles.jsx";
 import BrowseFilter from "components/BrowseFilter.jsx";
 import BrowseMap from "components/BrowseMap.jsx";
+import QueryString from "query-string";
+import 'assets/css/scroll-enable.css'
 
 class Browse extends React.Component {
   constructor(props) {
@@ -44,6 +46,10 @@ class Browse extends React.Component {
   }
 
   render() {
+    document.body.style.overflow = 'hidden';
+    const values = QueryString.parse(this.props.location.search);
+    var location = values.location
+    var service = values.service
     return (
       <>
         <MainNavbar />
@@ -72,7 +78,7 @@ class Browse extends React.Component {
                     <BrowseProfiles />
                   </Col>
                   <Col className="pl-1" md="8">
-                    <BrowseMap />
+                    <BrowseMap location={location}/>
                   </Col>
                 </Row>
             </div>

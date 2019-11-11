@@ -18,7 +18,7 @@
 /*eslint-disable*/
 import React from "react";
 import ReactDatetime from "react-datetime";
-import 'assets/css/browse-page.css'
+
 // reactstrap components
 import {
   Row,
