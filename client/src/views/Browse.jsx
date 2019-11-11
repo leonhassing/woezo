@@ -71,11 +71,11 @@ class Browse extends React.Component {
             </section>
           </div>
           <section className="section pt-4">
-            <div class="px-4">
-                  <BrowseFilter />
+            <div className="px-4">
+                  <BrowseFilter service={service}/>
                 <Row>
                   <Col className="pr-0" md="4">
-                    <BrowseProfiles />
+                    <BrowseProfiles service={service}/>
                   </Col>
                   <Col className="pl-1" md="8">
                     <BrowseMap location={location}/>

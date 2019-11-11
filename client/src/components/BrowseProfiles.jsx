@@ -45,13 +45,12 @@ class BrowseProfiles extends React.Component {
                     <h6 className="text-primary">
                     Leon Hassing
                     </h6>
-                    <h7 className="text-gray">
+                    <p className="text-gray">
                       1.2 km
-                    </h7>
-                    <br/>
-                    <h7 className="text-gray">
+                    </p>
+                    <p className="text-gray">
                       15 EUR/uur
-                    </h7>
+                    </p>
                   </Col>
                 </Row>
                 <Row>
@@ -79,13 +78,12 @@ class BrowseProfiles extends React.Component {
                     <h6 className="text-primary">
                     Leon Hassing
                     </h6>
-                    <h7 className="text-gray">
+                    <p className="text-gray">
                       1.2 km
-                    </h7>
-                    <br/>
-                    <h7 className="text-gray">
+                    </p>
+                    <p className="text-gray">
                       15 EUR/uur
-                    </h7>
+                    </p>
                   </Col>
                 </Row>
                 <Row>
@@ -113,13 +111,12 @@ class BrowseProfiles extends React.Component {
                     <h6 className="text-primary">
                     Leon Hassing
                     </h6>
-                    <h7 className="text-gray">
+                    <p className="text-gray">
                       1.2 km
-                    </h7>
-                    <br/>
-                    <h7 className="text-gray">
+                    </p>
+                    <p className="text-gray">
                       15 EUR/uur
-                    </h7>
+                    </p>
                   </Col>
                 </Row>
                 <Row>
@@ -147,13 +144,12 @@ class BrowseProfiles extends React.Component {
                     <h6 className="text-primary">
                     Leon Hassing
                     </h6>
-                    <h7 className="text-gray">
+                    <p className="text-gray">
                       1.2 km
-                    </h7>
-                    <br/>
-                    <h7 className="text-gray">
+                    </p>
+                    <p className="text-gray">
                       15 EUR/uur
-                    </h7>
+                    </p>
                   </Col>
                 </Row>
                 <Row>
@@ -181,13 +177,12 @@ class BrowseProfiles extends React.Component {
                     <h6 className="text-primary">
                     Leon Hassing
                     </h6>
-                    <h7 className="text-gray">
+                    <p className="text-gray">
                       1.2 km
-                    </h7>
-                    <br/>
-                    <h7 className="text-gray">
+                    </p>
+                    <p className="text-gray">
                       15 EUR/uur
-                    </h7>
+                    </p>
                   </Col>
                 </Row>
                 <Row>
@@ -215,13 +210,12 @@ class BrowseProfiles extends React.Component {
                     <h6 className="text-primary">
                     Leon Hassing
                     </h6>
-                    <h7 className="text-gray">
+                    <p className="text-gray">
                       1.2 km
-                    </h7>
-                    <br/>
-                    <h7 className="text-gray">
+                    </p>
+                    <p className="text-gray">
                       15 EUR/uur
-                    </h7>
+                    </p>
                   </Col>
                 </Row>
                 <Row>
