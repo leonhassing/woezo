@@ -27,9 +27,12 @@ import 'assets/css/scroll-enable.css'
 
 class BrowseProfiles extends React.Component {
   render() {
+
+  var profilesHeight = this.props.height - 182;
+
     return (
       <>
-        <div className="enableScroll">
+        <div style={{height: profilesHeight}}>
             <Card>
               <CardBody>
                 <Row>

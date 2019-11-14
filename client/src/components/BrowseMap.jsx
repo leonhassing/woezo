@@ -17,16 +17,9 @@
 */
 /*eslint-disable*/
 import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
-
-function getWidth() {
-  return window.innerWidth;
-}
-
-function getHeight() {
-  return window.innerHeight;
-}
+import MapMarker from './MapMarker'
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -34,14 +27,12 @@ export class MapContainer extends Component {
   
     this.state = {
       loading: true,
-      width:  800,
-      height: 600,
       coords: {
         lat: 52.3666969,
         lng: 4.8945398
-      }
+      },
+      zoom: 14
     };
-
   };
 
   /**
@@ -56,44 +47,15 @@ export class MapContainer extends Component {
           lat: response.data.results[0].geometry.location.lat,
           lng: response.data.results[0].geometry.location.lng
         }
-      this.setState({ coords: coords});
-      this.setState({loading: false});
+        this.setState({ coords: coords});
+        this.setState({ loading: false});
       })
-  };
-
-  /**
-   * Add event listener
-   */
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions.bind(this));
-  };
-
-  /**
-  * Remove event listener
-  */
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions.bind(this));
-  };
-
-  /**
-  * Calculate & Update state of new dimensions
-  */
-  updateDimensions() {
-    let updateWidth  = getWidth();
-    let updateHeight = getHeight();
-    this.setState({ width: updateWidth, height: updateHeight });
   };
 
   render() {
 
-    var mapWidth = (this.state.width / 3 ) * 2 - 26;
-    var mapHeight = this.state.height - 182;
-
-    const mapStyles = {
-      width: mapWidth,
-      height: mapHeight
-    };
+    var mapWidth = (this.props.width / 3 ) * 2 - 26;
+    var mapHeight = this.props.height - 182;
 
     if(this.state.loading === true) {
       var view = (
@@ -102,28 +64,26 @@ export class MapContainer extends Component {
     }
     else {
       var view = (
-        <Map
-          google={this.props.google}
-          zoom={14}
-          style={mapStyles}
-          initialCenter={this.state.coords}
-        >
-          <Marker
-            lat={52.3666969}
-            lng={4.8945398}
-            name="My Marker"
-            color="blue"
-          />
-        </Map>
-      )
+        <div style={{ height: mapHeight, width: mapWidth }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: 'AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0'}}
+            defaultCenter={this.state.coords}
+            defaultZoom={this.state.zoom}
+          >
+            <MapMarker
+              lat={52.013167}
+              lng={4.354548}
+              text="Custom Marker Dikke Lul Drie Bier"
+            />
+          </GoogleMapReact>
+        </div>
+      );
     }
     
-    return ( 
+    return (
       view
     );
   };
 };
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0'
-})(MapContainer);
+export default MapContainer

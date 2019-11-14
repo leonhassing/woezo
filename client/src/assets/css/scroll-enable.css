@@ -1,4 +1,7 @@
 .enableScroll {
-    height:1000px;
     overflow:auto;
+}
+
+.disableScroll {
+    overflow:fixed;
 }

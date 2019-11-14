@@ -31,19 +31,44 @@ import BrowseMap from "components/BrowseMap.jsx";
 import QueryString from "query-string";
 import 'assets/css/scroll-enable.css'
 
+function getWidth() {
+  return window.innerWidth;
+}
+
+function getHeight() {
+  return window.innerHeight;
+}
+
 class Browse extends React.Component {
   constructor(props) {
     super(props);
-
+  
     this.state = {
-      filter: {},
-    }
-  }
+      width:  800,
+      height: 600,
+      filter: ''
+    };
+
+  };
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions.bind(this));
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
+  };
+
+  updateDimensions() {
+    let updateWidth  = getWidth();
+    let updateHeight = getHeight();
+    this.setState({ width: updateWidth, height: updateHeight });
+  };
 
   render() {
     document.body.style.overflow = 'hidden';
@@ -73,12 +98,12 @@ class Browse extends React.Component {
           <section className="section pt-4">
             <div className="px-4">
                   <BrowseFilter service={service}/>
-                <Row>
-                  <Col className="pr-0" md="4">
-                    <BrowseProfiles service={service}/>
+                <Row className="enableScroll">
+                  <Col className="pr-0 enableScroll" md="4">
+                    <BrowseProfiles height={this.state.height} width={this.state.width} service={service}/>
                   </Col>
                   <Col className="pl-1" md="8">
-                    <BrowseMap location={location}/>
+                    <BrowseMap height={this.state.height} width={this.state.width} location={location}/>
                   </Col>
                 </Row>
             </div>
