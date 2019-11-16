@@ -16,10 +16,9 @@
 
 */
 /*eslint-disable*/
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+
+import React, {Component} from 'react'
 import axios from 'axios';
-import MapMarker from './MapMarker'
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -27,12 +26,17 @@ export class MapContainer extends Component {
   
     this.state = {
       loading: true,
+      width: 800,
+      height: 600,
       coords: {
         lat: 52.3666969,
         lng: 4.8945398
       },
       zoom: 14
     };
+    this.googleMapRef = React.createRef()
+    this.createGoogleMap = this.createGoogleMap.bind(this);
+    this.createMarker = this.createMarker.bind(this);
   };
 
   /**
@@ -52,6 +56,31 @@ export class MapContainer extends Component {
       })
   };
 
+  componentDidMount() {
+    const googleMapScript  = document.createElement("script");
+    const key = 'AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0';
+    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`;
+    window.document.body.appendChild(googleMapScript);
+
+    googleMapScript.addEventListener("load", () => {
+      this.googleMap = this.createGoogleMap();
+      this.marker = this.createMarker();
+    })
+  }
+
+  createGoogleMap = () =>
+  new window.google.maps.Map(this.googleMapRef.current, {
+    zoom: this.state.zoom,
+    center: this.state.coords,
+    disableDefaultUI: true,
+  })
+
+createMarker = () =>
+  new window.google.maps.Marker({
+    position: { lat: 43.642567, lng: -79.387054 },
+    map: this.googleMap,
+  })
+
   render() {
 
     var mapWidth = (this.props.width / 3 ) * 2 - 26;
@@ -64,19 +93,11 @@ export class MapContainer extends Component {
     }
     else {
       var view = (
-        <div style={{ height: mapHeight, width: mapWidth }}>
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: 'AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0'}}
-            defaultCenter={this.state.coords}
-            defaultZoom={this.state.zoom}
-          >
-            <MapMarker
-              lat={52.013167}
-              lng={4.354548}
-              text="Custom Marker Dikke Lul Drie Bier"
-            />
-          </GoogleMapReact>
-        </div>
+        <div
+          id="google-map"
+          ref={this.googleMapRef}
+          style={{ height: mapHeight, width: mapWidth }}
+        />
       );
     }
     
@@ -87,3 +108,5 @@ export class MapContainer extends Component {
 };
 
 export default MapContainer
+
+key: ''
