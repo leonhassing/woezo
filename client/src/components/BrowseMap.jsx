@@ -18,48 +18,26 @@
 /*eslint-disable*/
 
 import React, {Component} from 'react'
-import axios from 'axios';
+import store from '../store'
 
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      loading: true,
       width: 800,
-      height: 600,
-      coords: {
-        lat: 52.3666969,
-        lng: 4.8945398
-      },
-      zoom: 14
+      height: 600
     };
-    this.googleMapRef = React.createRef()
     this.createGoogleMap = this.createGoogleMap.bind(this);
     this.createMarker = this.createMarker.bind(this);
   };
 
-  /**
-   * Add geocode api call before component mount
-   */
-  componentWillMount() {
-    var geocodeApiQuery = `https://maps.googleapis.com/maps/api/geocode/json?address=${this.props.location}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`
-    axios
-      .get(geocodeApiQuery)
-      .then(response => { 
-        const coords = {
-          lat: response.data.results[0].geometry.location.lat,
-          lng: response.data.results[0].geometry.location.lng
-        }
-        this.setState({ coords: coords});
-        this.setState({ loading: false});
-      })
-  };
-
   componentDidMount() {
+
     const googleMapScript  = document.createElement("script");
     const key = 'AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0';
     googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`;
+    googleMapScript.defer = true;
     window.document.body.appendChild(googleMapScript);
 
     googleMapScript.addEventListener("load", () => {
@@ -68,38 +46,48 @@ export class MapContainer extends Component {
     })
   }
 
-  createGoogleMap = () =>
-  new window.google.maps.Map(this.googleMapRef.current, {
-    zoom: this.state.zoom,
-    center: this.state.coords,
-    disableDefaultUI: true,
-  })
+  createGoogleMap = () => {
+    var reduxState = store.getState();
+    var coords = reduxState.browse.coords;
+    new window.google.maps.Map(document.getElementById('google-map'), {
+      zoom: 14,
+      center: coords,
+      disableDefaultUI: true
+    })
+  }
+  
 
-createMarker = () =>
+createMarker = () => {
+
+  var image = {
+    url: 'https://img.icons8.com/material-outlined/72/marker.png',
+    // This marker is 20 pixels wide by 32 pixels high.
+    size: new google.maps.Size(72, 72),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(36, 72)
+  };
+
   new window.google.maps.Marker({
     position: { lat: 43.642567, lng: -79.387054 },
     map: this.googleMap,
+    icon: image
   })
+}
 
   render() {
 
     var mapWidth = (this.props.width / 3 ) * 2 - 26;
     var mapHeight = this.props.height - 182;
 
-    if(this.state.loading === true) {
-      var view = (
-        <div/>
-      )
-    }
-    else {
       var view = (
         <div
           id="google-map"
-          ref={this.googleMapRef}
+          ref="google-map"
           style={{ height: mapHeight, width: mapWidth }}
         />
       );
-    }
     
     return (
       view

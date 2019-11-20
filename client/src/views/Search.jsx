@@ -34,7 +34,19 @@ import {
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import "../assets/css/custom-additions.css"
+import store from 'store'
+import {  getGeocodeCoords, setCurrentService, setCurrentLocation } from 'actions/browseActions'
 
+function setReduxState(searchQuery) {
+  var promiseCache = {};
+  promiseCache.location = store.dispatch(setCurrentLocation(searchQuery.location));
+  promiseCache.service = store.dispatch(setCurrentService(searchQuery.service));
+  return promiseCache;
+}
+
+function setReduxStateAndRedirect(searchQuery, history) {
+  setReduxState(searchQuery).then(history.push('/browse-page'));
+}
 
 class Search extends React.Component {
   constructor(props) {
@@ -71,10 +83,8 @@ class Search extends React.Component {
 
   handleFormSubmit(e) {
       e.preventDefault();
-      let searchLocation = this.state.searchQuery.location;
-      let searchService = this.state.searchQuery.service;
-      let searchURL = "/browse-page?location=" + searchLocation + "&service=" + searchService;
-      window.location.replace(searchURL);
+      getGeocodeCoords(this.state.searchQuery.location);
+      setReduxStateAndRedirect(this.state.searchQuery, this.props.history);   
   }
 
   handleClearForm(e) {

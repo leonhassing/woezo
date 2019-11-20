@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -75,7 +76,8 @@ class Landing extends React.Component {
                         <Button
                           className="btn-1 btn-icon mb-3 mb-sm-0"
                           color="primary"
-                          href="/search-page"
+                          to="/search-page"
+                          tag={Link}
                         >
                           <span className="btn-inner--icon mr-1 text-white">
                             <i className="fa fa-search" />

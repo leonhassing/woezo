@@ -28,7 +28,6 @@ import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import BrowseProfiles from "components/BrowseProfiles.jsx";
 import BrowseFilter from "components/BrowseFilter.jsx";
 import BrowseMap from "components/BrowseMap.jsx";
-import QueryString from "query-string";
 import 'assets/css/scroll-enable.css'
 
 function getWidth() {
@@ -46,7 +45,6 @@ class Browse extends React.Component {
     this.state = {
       width:  800,
       height: 600,
-      filter: ''
     };
 
   };
@@ -72,9 +70,7 @@ class Browse extends React.Component {
 
   render() {
     document.body.style.overflow = 'hidden';
-    const values = QueryString.parse(this.props.location.search);
-    var location = values.location
-    var service = values.service
+    
     return (
       <>
         <MainNavbar />
@@ -97,13 +93,13 @@ class Browse extends React.Component {
           </div>
           <section className="section pt-4">
             <div className="px-4">
-                  <BrowseFilter service={service}/>
+                  <BrowseFilter/>
                 <Row className="enableScroll">
                   <Col className="pr-0 enableScroll" md="4">
-                    <BrowseProfiles height={this.state.height} width={this.state.width} service={service}/>
+                    <BrowseProfiles height={this.state.height} width={this.state.width}/>
                   </Col>
                   <Col className="pl-1" md="8">
-                    <BrowseMap height={this.state.height} width={this.state.width} location={location}/>
+                    <BrowseMap height={this.state.height} width={this.state.width}/>
                   </Col>
                 </Row>
             </div>
