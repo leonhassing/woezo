@@ -17,10 +17,11 @@
 */
 /*eslint-disable*/
 
-import React, {Component} from 'react'
-import store from '../store'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export class MapContainer extends Component {
+export class BrowseMap extends Component {
   constructor(props) {
     super(props);
   
@@ -33,7 +34,7 @@ export class MapContainer extends Component {
   };
 
   componentDidMount() {
-
+    console.log(this.props.coords);
     const googleMapScript  = document.createElement("script");
     const key = 'AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0';
     googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`;
@@ -47,11 +48,9 @@ export class MapContainer extends Component {
   }
 
   createGoogleMap = () => {
-    var reduxState = store.getState();
-    var coords = reduxState.browse.coords;
     new window.google.maps.Map(document.getElementById('google-map'), {
       zoom: 14,
-      center: coords,
+      center: this.props.coords,
       disableDefaultUI: true
     })
   }
@@ -80,12 +79,13 @@ createMarker = () => {
 
     var mapWidth = (this.props.width / 3 ) * 2 - 26;
     var mapHeight = this.props.height - 182;
+    var mapCenter = this.props.coords
 
       var view = (
         <div
           id="google-map"
           ref="google-map"
-          style={{ height: mapHeight, width: mapWidth }}
+          style={{ height: mapHeight, width: mapWidth, center: mapCenter }}
         />
       );
     
@@ -95,6 +95,16 @@ createMarker = () => {
   };
 };
 
-export default MapContainer
+BrowseMap.propTypes = {
+  location: PropTypes.string.isRequired,
+  service: PropTypes.string.isRequired,
+  coords: PropTypes.object.isRequired,
+}
 
-key: ''
+const mapStateToProps = state => ({
+    location: state.browse.location,
+    service: state.browse.service,
+    coords: state.browse.coords
+})
+
+export default connect(mapStateToProps)(BrowseMap);

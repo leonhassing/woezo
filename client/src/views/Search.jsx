@@ -16,6 +16,8 @@
 
 */
 import React from "react";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // reactstrap components
 import {
@@ -37,17 +39,6 @@ import "../assets/css/custom-additions.css"
 import store from 'store'
 import {  getGeocodeCoords, setCurrentService, setCurrentLocation } from 'actions/browseActions'
 
-function setReduxState(searchQuery) {
-  var promiseCache = {};
-  promiseCache.location = store.dispatch(setCurrentLocation(searchQuery.location));
-  promiseCache.service = store.dispatch(setCurrentService(searchQuery.service));
-  return promiseCache;
-}
-
-function setReduxStateAndRedirect(searchQuery, history) {
-  setReduxState(searchQuery).then(history.push('/browse-page'));
-}
-
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -67,8 +58,8 @@ class Search extends React.Component {
 
   handleLocation(e) {
     let value = e.target.value;
-    this.setState( prevState => ({ searchQuery : 
-         {...prevState.searchQuery, location: value
+    this.setState( prevProps => ({ searchQuery : 
+         {...prevProps.searchQuery, location: value
          }
        }), () => console.log(this.state.searchQuery))
    }
@@ -83,16 +74,23 @@ class Search extends React.Component {
 
   handleFormSubmit(e) {
       e.preventDefault();
-      getGeocodeCoords(this.state.searchQuery.location);
-      setReduxStateAndRedirect(this.state.searchQuery, this.props.history);   
+      let location = this.state.searchQuery.location;
+      let service = this.state.searchQuery.service;
+
+
+      store.dispatch(setCurrentLocation(location));
+      store.dispatch(setCurrentService(service));
+      getGeocodeCoords(location);
+
+      this.props.history.push('/browse-page');
   }
 
   handleClearForm(e) {
       e.preventDefault();
       this.setState({ 
-        loginUser: {
-          email: '',
-          password: ''
+        searchQuery: {
+          location:'',
+          service:''
         },
       })
     }
@@ -262,4 +260,16 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+Search.propTypes = {
+  location: PropTypes.string.isRequired,
+  service: PropTypes.string.isRequired,
+  coords: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = state => ({
+    location: state.browse.location,
+    service: state.browse.service,
+    coords: state.browse.coords
+})
+
+export default connect(mapStateToProps)(Search);
