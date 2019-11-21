@@ -260,12 +260,6 @@ class Search extends React.Component {
   }
 }
 
-Search.propTypes = {
-  location: PropTypes.string.isRequired,
-  service: PropTypes.string.isRequired,
-  coords: PropTypes.object.isRequired,
-}
-
 const mapStateToProps = state => ({
     location: state.browse.location,
     service: state.browse.service,
