@@ -52,6 +52,7 @@
     "axios": "^0.18.0",
     "classnames": "2.2.6",
     "google-map-react": "^1.1.5",
+    "react-pure-render": "^1.0.2",
     "jwt-decode": "^2.2.0",
     "headroom.js": "0.9.4",
     "moment": "2.24.0",

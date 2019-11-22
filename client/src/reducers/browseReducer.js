@@ -14,20 +14,17 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_LOCATION:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         location: action.payload
-      };
+      })
     case SET_CURRENT_COORDS:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         coords: action.payload
-      };
+      })
     case SET_CURRENT_SERVICE:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         service: action.payload
-      };
+      })
     default:
       return state;
   }

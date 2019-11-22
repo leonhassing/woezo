@@ -16,8 +16,6 @@
 
 */
 import React from "react";
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 // reactstrap components
 import {
@@ -58,8 +56,8 @@ class Search extends React.Component {
 
   handleLocation(e) {
     let value = e.target.value;
-    this.setState( prevProps => ({ searchQuery : 
-         {...prevProps.searchQuery, location: value
+    this.setState( prevState => ({ searchQuery : 
+         {...prevState.searchQuery, location: value
          }
        }), () => console.log(this.state.searchQuery))
    }
@@ -72,16 +70,14 @@ class Search extends React.Component {
        }), () => console.log(this.state.searchQuery))
    }
 
-  handleFormSubmit(e) {
+  async handleFormSubmit(e) {
       e.preventDefault();
       let location = this.state.searchQuery.location;
       let service = this.state.searchQuery.service;
 
-
       store.dispatch(setCurrentLocation(location));
       store.dispatch(setCurrentService(service));
-      getGeocodeCoords(location);
-
+      await getGeocodeCoords(location);
       this.props.history.push('/browse-page');
   }
 
@@ -94,6 +90,7 @@ class Search extends React.Component {
         },
       })
     }
+    
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -260,10 +257,4 @@ class Search extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-    location: state.browse.location,
-    service: state.browse.service,
-    coords: state.browse.coords
-})
-
-export default connect(mapStateToProps)(Search);
+export default Search;

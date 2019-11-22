@@ -27,7 +27,7 @@ import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import BrowseProfiles from "components/BrowseProfiles.jsx";
 import BrowseFilter from "components/BrowseFilter.jsx";
-import BrowseMap from "components/BrowseMap.jsx";
+import Map from "components/Map.jsx";
 import 'assets/css/scroll-enable.css'
 
 function getWidth() {
@@ -46,7 +46,6 @@ class Browse extends React.Component {
       width:  800,
       height: 600,
     };
-
   };
 
   componentDidMount() {
@@ -99,7 +98,10 @@ class Browse extends React.Component {
                     <BrowseProfiles height={this.state.height} width={this.state.width}/>
                   </Col>
                   <Col className="pl-1" md="8">
-                    <BrowseMap height={this.state.height} width={this.state.width}/>
+                    <Map 
+                      height={this.state.height} 
+                      width={this.state.width}>
+                    </Map>
                   </Col>
                 </Row>
             </div>
