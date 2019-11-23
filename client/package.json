@@ -48,6 +48,28 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "babel": {
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ],
+      [
+        "@babel/plugin-syntax-decorators"
+      ]
+    ],
+    "presets": [
+      "react-app"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "2.2.6",
@@ -66,15 +88,19 @@
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
     "react-scripts": "3.0.0",
+    "react-controllables": "^0.6.0",
     "reactstrap": "8.0.0",
     "redux": "^3.7.2",
     "query-string": "^6.8.3"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
+    "@babel/plugin-syntax-decorators": "^7.7.4",
     "@types/googlemaps": "3.30.19",
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.8.16",
-    "typescript": "3.4.5",
-    "supertest": "4.0.2"
+    "supertest": "4.0.2",
+    "typescript": "3.4.5"
   }
 }
