@@ -23,8 +23,6 @@ class Map extends Component {
   };
 
   static defaultProps = {
-    center: [59.838043, 30.337157],
-    zoom: 9,
     locations: [
       {id: 'A', lat: 52.369867, lng: 4.888918},
       {id: 'B', lat: 52.357389, lng: 4.900575},
@@ -40,17 +38,20 @@ class Map extends Component {
     this.state = {
       width: 800,
       height: 600,
-      zoom: 14
+      zoom: 14,
+      markerClickId: 0
     };
   };
 
   _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
     this.props.onCenterChange(center);
     this.props.onZoomChange(zoom);
+    this.props.onHoverKeyChange(null);
   }
 
   _onChildClick = (key, childProps) => {
-    this.props.onCenterChange([childProps.lat, childProps.lng]);
+    this.props.onHoverKeyChange(null);
+    this.state.markerClickId = this.props.hoverKey;
   }
 
   _onChildMouseEnter = (key /*, childProps */) => {
@@ -72,7 +73,8 @@ class Map extends Component {
             {...locationCoords}
             text={id}
             // use your hover state (from store, react-controllables etc...)
-            hover={this.props.hoverKey === id} />
+            hover={this.props.hoverKey === id}
+            show={this.state.markerClickId === id}/>
         );
       });
 
