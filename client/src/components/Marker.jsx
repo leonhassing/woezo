@@ -28,8 +28,7 @@ const markerStyle = {
 
 const hoverStyle = {
   ...markerStyle,
-  border: '5px solid #3f51b5',
-  color: '#f44336'
+  border: '5px solid #6F81ED',
 };  
 
 class Marker extends Component {
@@ -48,12 +47,11 @@ class Marker extends Component {
   }
 
   render() {
-    const style = this.props.hover ? markerStyle : hoverStyle;
+    const style = this.props.hover ? hoverStyle : markerStyle;
     return (
       <div className="hint hint--html hint--info hint--top" style={style}>
-        <div>{this.props.text}</div>
+        <div></div>
         <div style={{width: 80}} className="hint__content">
-          Test 123
         </div>
       </div>
     );

@@ -26,8 +26,9 @@ class Map extends Component {
     center: [59.838043, 30.337157],
     zoom: 9,
     locations: [
-      {id: 'A', lat: 59.955413, lng: 30.337844},
-      {id: 'B', lat: 59.724, lng: 30.080}
+      {id: 'A', lat: 52.369867, lng: 4.888918},
+      {id: 'B', lat: 52.357389, lng: 4.900575},
+      {id: 'C', lat: 52.386046, lng: 4.917757},
     ]
   };
 
@@ -85,7 +86,7 @@ class Map extends Component {
           defaultCenter={this.props.coords}
           center={this.props.coords}
           defaultZoom={this.state.zoom}
-          zoom={this.props.zoom}
+          zoom={this.state.zoom}
           hoverDistance={K_SIZE / 2}
           onBoundsChange={this._onBoundsChange}
           onChildClick={this._onChildClick}
