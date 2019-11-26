@@ -17,6 +17,7 @@
 */
 
 import React from "react";
+import { Link } from "react-router-dom";
 // import store from './../store';
 
 // reactstrap components
@@ -39,8 +40,7 @@ import {
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-import {loginUser} from "../actions/authActions";
-
+import { loginUser } from "../actions/authActions";
 
 class Login extends React.Component {
   constructor(props) {
@@ -48,51 +48,48 @@ class Login extends React.Component {
 
     this.state = {
       loginUser: {
-        email: '',
-        password: ''
-        },
-
-    }
+        email: "",
+        password: ""
+      }
+    };
     this.handlePassword = this.handlePassword.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
   }
 
-
-
   /* This lifecycle hook gets executed when the component mounts */
 
   handleEmail(e) {
     let value = e.target.value;
-    this.setState( prevState => ({ loginUser : 
-         {...prevState.loginUser, email: value
-         }
-       }), () => console.log(this.state.loginUser))
-   }
+    this.setState(
+      prevState => ({ loginUser: { ...prevState.loginUser, email: value } }),
+      () => console.log(this.state.loginUser)
+    );
+  }
 
   handlePassword(e) {
     let value = e.target.value;
-    this.setState( prevState => ({ loginUser : 
-         {...prevState.loginUser, password: value
-         }
-       }), () => console.log(this.state.loginUser))
-   }
+    this.setState(
+      prevState => ({ loginUser: { ...prevState.loginUser, password: value } }),
+      () => console.log(this.state.loginUser)
+    );
+  }
 
   handleFormSubmit(e) {
-      e.preventDefault();
-      let userData = this.state.loginUser;
-      loginUser(userData);
+    e.preventDefault();
+    let userData = this.state.loginUser;
+    loginUser(userData);
   }
 
   handleClearForm(e) {
-      e.preventDefault();
-      this.setState({ 
-        loginUser: {
-          email: '',
-          password: ''
-        },
-      })
+    e.preventDefault();
+    this.setState({
+      loginUser: {
+        email: "",
+        password: ""
+      }
+    });
   }
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -166,13 +163,13 @@ class Login extends React.Component {
                                 <i className="ni ni-email-83" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input 
+                            <Input
                               placeholder="Email"
                               name="email"
                               id="email"
                               type="email"
                               autoComplete="off"
-                              onChange = {this.handleEmail}
+                              onChange={this.handleEmail}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -189,10 +186,10 @@ class Login extends React.Component {
                               name="password"
                               id="password"
                               autoComplete="off"
-                              onChange = {this.handlePassword}
+                              onChange={this.handlePassword}
                             />
                           </InputGroup>
-                        </FormGroup>  
+                        </FormGroup>
                         <div className="text-center">
                           <Button
                             className="my-4"
@@ -207,21 +204,14 @@ class Login extends React.Component {
                   </Card>
                   <Row className="mt-3">
                     <Col xs="6">
-                      <a
-                        className="text-light"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
+                      <Link className="text-light" to="/forgotpassword-page">
                         <small>Forgot password?</small>
-                      </a>
+                      </Link>
                     </Col>
                     <Col className="text-right" xs="6">
-                      <a
-                        className="text-light"
-                        href="/register-page"
-                      >
+                      <Link className="text-light" to="/register-page">
                         <small>Create new account</small>
-                      </a>
+                      </Link>
                     </Col>
                   </Row>
                 </Col>

@@ -17,23 +17,37 @@
 */
 import React from "react";
 
+// nodejs library that concatenates classes
+import classnames from "classnames";
+
 // reactstrap components
-import { Button, Card, Container, Row, Col } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  Container,
+  NavItem,
+  NavLink,
+  Nav,
+  TabContent,
+  TabPane,
+  Row,
+  Col
+} from "reactstrap";
 
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-import store from '../store'
-import {logoutUser} from "../actions/authActions"
-
+import store from "../store";
+import { logoutUser } from "../actions/authActions";
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       profile: {},
-    }
+      iconTabs: 1
+    };
+    this.toggleNavs = this.toggleNavs.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
   componentDidMount() {
@@ -46,9 +60,17 @@ class Profile extends React.Component {
     e.preventDefault();
     logoutUser();
   }
+
+  toggleNavs = (e, state, index) => {
+    e.preventDefault();
+    this.setState({
+      [state]: index
+    });
+  };
+
   render() {
-  var reduxState = store.getState();
-  var name = reduxState.auth.user.name;
+    var reduxState = store.getState();
+    var name = reduxState.auth.user.name;
 
     return (
       <>
@@ -83,95 +105,100 @@ class Profile extends React.Component {
             </div>
           </section>
           <section className="section">
-            <Container>
-              <Card className="card-profile shadow mt--300">
-                <div className="px-4">
-                  <Row className="justify-content-center">
-                    <Col className="order-lg-2" lg="3">
-                      <div className="card-profile-image">
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                          <img
-                            alt="..."
-                            className="rounded-circle"
-                            src={require("assets/img/theme/team-4-800x800.jpg")}
-                          />
-                        </a>
-                      </div>
-                    </Col>
-                    <Col
-                      className="order-lg-3 text-lg-right align-self-lg-center"
-                      lg="4"
+            <Container className="mt--300">
+              <Row className="justify-content-center">
+                <Col lg="12">
+                  {/* Tabs with icons */}
+                  <div className="nav-wrapper">
+                    <Nav
+                      className="nav-fill flex-column flex-md-row"
+                      id="tabs-icons-text"
+                      pills
+                      role="tablist"
                     >
-                      <div className="card-profile-actions py-4 mt-lg-0">
-                        <Button
-                          className="mr-4"
-                          color="info"
+                      <NavItem>
+                        <NavLink
+                          aria-selected={this.state.iconTabs === 1}
+                          className={classnames("mb-sm-3 mb-md-0", {
+                            active: this.state.iconTabs === 1
+                          })}
+                          onClick={e => this.toggleNavs(e, "iconTabs", 1)}
                           href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          size="sm"
+                          role="tab"
                         >
-                          Connect
-                        </Button>
-                        <Button
-                          className="float-right"
-                          color="default"
+                          <i className="ni ni-cloud-upload-96 mr-2" />
+                          Home
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink
+                          aria-selected={this.state.iconTabs === 2}
+                          className={classnames("mb-sm-3 mb-md-0", {
+                            active: this.state.iconTabs === 2
+                          })}
+                          onClick={e => this.toggleNavs(e, "iconTabs", 2)}
                           href="#pablo"
-                          onClick={this.handleLogout}
-                          size="sm"
+                          role="tab"
                         >
-                          Logout
-                        </Button>
-                      </div>
-                    </Col>
-                    <Col className="order-lg-1" lg="4">
-                      <div className="card-profile-stats d-flex justify-content-center">
-                        <div>
-                          <span className="heading">2</span>
-                          <span className="description">katten</span>
-                        </div>
-                        <div>
-                          <span className="heading">0</span>
-                          <span className="description">honden</span>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                  <div className="text-center mt-5">
-                    <h3>
-                      {name}{" "}
-                      <span className="font-weight-light">, 27</span>
-                    </h3>
-                    <div className="h6 font-weight-300">
-                      <i className="ni location_pin mr-2" />
-                      Bucharest, Romania
-                    </div>
-                    <div className="h6 mt-4">
-                      <i className="ni business_briefcase-24 mr-2" />
-                      Katoppas
-                    </div>
-                    <div>
-                      <i className="ni education_hat mr-2" />
-                      3 jaar ervaring
-                    </div>
+                          <i className="ni ni-bell-55 mr-2" />
+                          Profile
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink
+                          aria-selected={this.state.iconTabs === 3}
+                          className={classnames("mb-sm-3 mb-md-0", {
+                            active: this.state.iconTabs === 3
+                          })}
+                          onClick={e => this.toggleNavs(e, "iconTabs", 3)}
+                          href="#pablo"
+                          role="tab"
+                        >
+                          <i className="ni ni-calendar-grid-58 mr-2" />
+                          Messages
+                        </NavLink>
+                      </NavItem>
+                    </Nav>
                   </div>
-                  <div className="mt-5 py-5 border-top text-center">
-                    <Row className="justify-content-center">
-                      <Col lg="9">
-                        <p>
-                          An artist of considerable range, Ryan — the name taken
-                          by Melbourne-raised, Brooklyn-based Nick Murphy —
-                          writes, performs and records all of his own music,
-                          giving it a warm, intimate feel with a solid groove
-                          structure. An artist of considerable range.
-                        </p>
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                          Show more
-                        </a>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-              </Card>
+                  <Card className="shadow">
+                    <CardBody>
+                      <TabContent activeTab={"iconTabs" + this.state.iconTabs}>
+                        <TabPane tabId="iconTabs1">
+                          <p className="description">
+                            Raw denim you probably haven't heard of them jean
+                            shorts Austin. Nesciunt tofu stumptown aliqua, retro
+                            synth master cleanse. Mustache cliche tempor,
+                            williamsburg carles vegan helvetica. Reprehenderit
+                            butcher retro keffiyeh dreamcatcher synth.
+                          </p>
+                          <p className="description">
+                            Raw denim you probably haven't heard of them jean
+                            shorts Austin. Nesciunt tofu stumptown aliqua, retro
+                            synth master cleanse.
+                          </p>
+                        </TabPane>
+                        <TabPane tabId="iconTabs2">
+                          <p className="description">
+                            Cosby sweater eu banh mi, qui irure terry richardson
+                            ex squid. Aliquip placeat salvia cillum iphone.
+                            Seitan aliquip quis cardigan american apparel,
+                            butcher voluptate nisi qui.
+                          </p>
+                        </TabPane>
+                        <TabPane tabId="iconTabs3">
+                          <p className="description">
+                            Raw denim you probably haven't heard of them jean
+                            shorts Austin. Nesciunt tofu stumptown aliqua, retro
+                            synth master cleanse. Mustache cliche tempor,
+                            williamsburg carles vegan helvetica. Reprehenderit
+                            butcher retro keffiyeh dreamcatcher synth.
+                          </p>
+                        </TabPane>
+                      </TabContent>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
             </Container>
           </section>
         </main>

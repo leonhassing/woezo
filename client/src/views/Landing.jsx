@@ -19,15 +19,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import {
-  Badge,
-  Button,
-  Card,
-  CardBody,
-  Container,
-  Row,
-  Col
-} from "reactstrap";
+import { Badge, Button, Card, CardBody, Container, Row, Col } from "reactstrap";
 
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
@@ -66,11 +58,12 @@ class Landing extends React.Component {
                   <Row>
                     <Col lg="6">
                       <h1 className="display-3 text-white">
-                        Zoek je hulp?{" "}
-                        <span>Met Woezo kom je verder</span>
+                        Zoek je hulp? <span>Met Woezo kom je verder</span>
                       </h1>
                       <p className="lead text-white">
-                        Door Woezo vinden mensen elkaar. De makkelijkste app voor afnemers en aanbieders van kleine en grotere diensten in en rondom het huis.
+                        Door Woezo vinden mensen elkaar. De makkelijkste app
+                        voor afnemers en aanbieders van kleine en grotere
+                        diensten in en rondom het huis.
                       </p>
                       <div className="btn-wrapper">
                         <Button
@@ -92,7 +85,10 @@ class Landing extends React.Component {
                           href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
                         >
                           <span className="btn-inner--icon mr-1 text-white">
-                          <i className="fa fa-hand-paper-o" aria-hidden="true"></i>
+                            <i
+                              className="fa fa-hand-paper-o"
+                              aria-hidden="true"
+                            ></i>
                           </span>
                           <span className="btn-inner--text text-white">
                             Bied hulp
@@ -125,86 +121,87 @@ class Landing extends React.Component {
           <section className="section section-lg pt-lg-0 mt--200">
             <Container>
               <Row className="justify-content-center">
-                  <Row className="row-grid">
-                    <Col lg="4">
-                      <Card className="card-lift--hover shadow border">
-                        <CardBody className="py-5">
-                          <h6 className="text-primary text-uppercase">
-                            1. Vul je gewenste datum, tijdstip en postcode in
-                          </h6>
-                          <div>
-                            <Badge color="primary" pill className="mr-1">
-                              makkelijk
-                            </Badge>
-                            <Badge color="primary" pill className="mr-1">
-                              snel
-                            </Badge>
-                            <Badge color="primary" pill className="mr-1">
-                              intuitief
-                            </Badge>
-                          </div>
-                          <Button
-                            className="mt-4"
-                            color="primary"
-                            href="/search-page"
-                          >
-                            Begin nu
-                          </Button>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                    <Col lg="4">
-                      <Card className="card-lift--hover shadow border">
-                        <CardBody className="py-5">
-                          <h6 className="text-warning text-uppercase">
-                            2. Kies de hulp die het best bij je past
-                          </h6>
-                          <div>
-                            <Badge color="warning" pill className="mr-1">
-                              persoonlijk
-                            </Badge>
-                            <Badge color="warning" pill className="mr-1">
-                              reviews
-                            </Badge>
-                            <Badge color="warning" pill className="mr-1">
-                              eigen keus
-                            </Badge>
-                          </div>
-                          <Button
-                            className="mt-4"
-                            color="warning"
-                            href="#pablo"
-                            onClick={e => e.preventDefault()}
-                          >
-                            Lees verder
-                          </Button>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                    <Col lg="4">
-                      <Card className="card-lift--hover shadow border">
-                        <CardBody className="py-5">
-                          <h6 className="text-success text-uppercase">
-                            3. Betaal en geniet!
-                          </h6>
-                          <br/>
-                          <div>
-                            <Badge color="success" pill className="mr-1">
-                              veilig
-                            </Badge>
-                          </div>
-                          <Button
-                            className="mt-4"
-                            color="success"
-                            href="#pablo"
-                            onClick={e => e.preventDefault()}
-                          >
-                            Lees verder
-                          </Button>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                  </Row>
+                <Row className="row-grid">
+                  <Col lg="4">
+                    <Card className="card-lift--hover shadow border">
+                      <CardBody className="py-5">
+                        <h6 className="text-primary text-uppercase">
+                          1. Vul je gewenste datum, tijdstip en postcode in
+                        </h6>
+                        <div>
+                          <Badge color="primary" pill className="mr-1">
+                            makkelijk
+                          </Badge>
+                          <Badge color="primary" pill className="mr-1">
+                            snel
+                          </Badge>
+                          <Badge color="primary" pill className="mr-1">
+                            intuitief
+                          </Badge>
+                        </div>
+                        <Button
+                          className="text-white mt-4"
+                          color="primary"
+                          to="/search-page"
+                          tag={Link}
+                        >
+                          Begin nu
+                        </Button>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                  <Col lg="4">
+                    <Card className="card-lift--hover shadow border">
+                      <CardBody className="py-5">
+                        <h6 className="text-warning text-uppercase">
+                          2. Kies de hulp die het best bij je past
+                        </h6>
+                        <div>
+                          <Badge color="warning" pill className="mr-1">
+                            persoonlijk
+                          </Badge>
+                          <Badge color="warning" pill className="mr-1">
+                            reviews
+                          </Badge>
+                          <Badge color="warning" pill className="mr-1">
+                            eigen keus
+                          </Badge>
+                        </div>
+                        <Button
+                          className="mt-4"
+                          color="warning"
+                          href="#pablo"
+                          onClick={e => e.preventDefault()}
+                        >
+                          Lees verder
+                        </Button>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                  <Col lg="4">
+                    <Card className="card-lift--hover shadow border">
+                      <CardBody className="py-5">
+                        <h6 className="text-success text-uppercase">
+                          3. Betaal en geniet!
+                        </h6>
+                        <br />
+                        <div>
+                          <Badge color="success" pill className="mr-1">
+                            veilig
+                          </Badge>
+                        </div>
+                        <Button
+                          className="mt-4"
+                          color="success"
+                          href="#pablo"
+                          onClick={e => e.preventDefault()}
+                        >
+                          Lees verder
+                        </Button>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
               </Row>
             </Container>
           </section>
@@ -214,8 +211,8 @@ class Landing extends React.Component {
                 <Col lg="8">
                   <h2 className="display-3">Onze nieuwste krachten</h2>
                   <p className="lead text-muted">
-                    Allemaal toegewijd om te helpen met jouw katten,
-                    honden, schoonmaak, IT, noem maar op!
+                    Allemaal toegewijd om te helpen met jouw katten, honden,
+                    schoonmaak, IT, noem maar op!
                   </p>
                 </Col>
               </Row>
@@ -234,11 +231,26 @@ class Landing extends React.Component {
                         <small className="h6 text-muted">Katoppas</small>
                       </h5>
                       <div className="mt-3">
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
                       </div>
                     </div>
                   </div>
@@ -254,14 +266,21 @@ class Landing extends React.Component {
                     <div className="pt-4 text-center">
                       <h5 className="title">
                         <span className="d-block mb-1">Romina Hadid</span>
-                        <small className="h6 text-muted">
-                          Hondenuitlaat
-                        </small>
+                        <small className="h6 text-muted">Hondenuitlaat</small>
                       </h5>
                       <div className="mt-3">
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
                         <span className="fa fa-2x fa-star-o"></span>
                         <span className="fa fa-2x fa-star-o"></span>
                       </div>
@@ -282,10 +301,22 @@ class Landing extends React.Component {
                         <small className="h6 text-muted">IT Hulp</small>
                       </h5>
                       <div className="mt-3">
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
                         <span className="fa fa-2x fa-star-o"></span>
                       </div>
                     </div>
@@ -305,9 +336,18 @@ class Landing extends React.Component {
                         <small className="h6 text-muted">Babysitter</small>
                       </h5>
                       <div className="mt-3">
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
-                        <span className="fa fa-2x fa-star" style={{color:"orange"}}></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
+                        <span
+                          className="fa fa-2x fa-star"
+                          style={{ color: "orange" }}
+                        ></span>
                         <span className="fa fa-2x fa-star-o"></span>
                         <span className="fa fa-2x fa-star-o"></span>
                       </div>

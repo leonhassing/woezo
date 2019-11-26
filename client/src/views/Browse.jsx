@@ -18,17 +18,14 @@
 import React from "react";
 
 // reactstrap components
-import {
-  Row,
-  Col
-} from "reactstrap";
+import { Row, Col } from "reactstrap";
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import BrowseProfiles from "components/BrowseProfiles.jsx";
 import BrowseFilter from "components/BrowseFilter.jsx";
 import Map from "components/Map.jsx";
-import 'assets/css/scroll-enable.css'
+import "assets/css/scroll-enable.css";
 
 function getWidth() {
   return window.innerWidth;
@@ -41,12 +38,12 @@ function getHeight() {
 class Browse extends React.Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
-      width:  800,
-      height: 600,
+      width: 800,
+      height: 600
     };
-  };
+  }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -59,17 +56,18 @@ class Browse extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions.bind(this));
-  };
+    document.body.style.overflow = "visible";
+  }
 
   updateDimensions() {
-    let updateWidth  = getWidth();
+    let updateWidth = getWidth();
     let updateHeight = getHeight();
     this.setState({ width: updateWidth, height: updateHeight });
-  };
+  }
 
   render() {
-    document.body.style.overflow = 'hidden';
-    
+    document.body.style.overflow = "hidden";
+
     return (
       <>
         <MainNavbar />
@@ -92,18 +90,21 @@ class Browse extends React.Component {
           </div>
           <section className="section pt-4">
             <div className="px-4">
-                  <BrowseFilter/>
-                <Row className="enableScroll">
-                  <Col className="pr-0 enableScroll" md="4">
-                    <BrowseProfiles height={this.state.height} width={this.state.width}/>
-                  </Col>
-                  <Col className="pl-1" md="8">
-                    <Map 
-                      height={this.state.height} 
-                      width={this.state.width}>
-                    </Map>
-                  </Col>
-                </Row>
+              <BrowseFilter />
+              <Row className="enableScroll">
+                <Col className="pr-0 enableScroll" md="4">
+                  <BrowseProfiles
+                    height={this.state.height}
+                    width={this.state.width}
+                  />
+                </Col>
+                <Col className="pl-1" md="8">
+                  <Map
+                    height={this.state.height}
+                    width={this.state.width}
+                  ></Map>
+                </Col>
+              </Row>
             </div>
           </section>
         </main>
