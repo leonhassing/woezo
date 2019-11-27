@@ -24,7 +24,7 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import store from '../store'
-import {logoutUser} from "../actions/authActions"
+import { logoutUser } from "../actions/authActions"
 
 
 class Profile extends React.Component {
@@ -47,8 +47,8 @@ class Profile extends React.Component {
     logoutUser();
   }
   render() {
-  var reduxState = store.getState();
-  var name = reduxState.auth.user.name;
+    var reduxState = store.getState();
+    var name = reduxState.auth.user.name;
 
     return (
       <>
