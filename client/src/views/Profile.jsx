@@ -232,7 +232,7 @@ class Profile extends React.Component {
                             </div>
                             <Row className="justify-content-center">
                               <Button>
-                                Edit Profile..
+                                Edit Profile...
                               </Button>
                             </Row>
                             <div id="progress-bar" className="progress-wrapper">
