@@ -25,8 +25,6 @@ export const registerUser = (userData, instantLogin) => {
   axios
     .post(registerApi, userData)
     .then(response => {
-      console.log("Successful registration:");
-      console.log(response);
       if (instantLogin) {
         let loginData = {
           email: userData.email,

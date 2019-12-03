@@ -37,7 +37,7 @@ import {
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-import {registerUser} from "../actions/authActions";
+import { registerUser } from "../actions/authActions";
 
 class Register extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class Register extends React.Component {
         email: '',
         password: '',
         password2: ''
-        },
+      },
 
     }
     this.handleName = this.handleName.bind(this);
@@ -61,38 +61,46 @@ class Register extends React.Component {
   }
 
   /* This lifecycle hook gets executed when the component mounts */
-  
+
   handleName(e) {
-   let value = e.target.value;
-   this.setState( prevState => ({ newUser : 
-        {...prevState.newUser, name: value
-        }
-      }), () => console.log(this.state.newUser))
+    let value = e.target.value;
+    this.setState(prevState => ({
+      newUser:
+      {
+        ...prevState.newUser, name: value
+      }
+    }))
   }
 
   handlePassword(e) {
     let value = e.target.value;
-    this.setState( prevState => ({ newUser : 
-         {...prevState.newUser, password: value
-         }
-       }), () => console.log(this.state.newUser))
-   }
+    this.setState(prevState => ({
+      newUser:
+      {
+        ...prevState.newUser, password: value
+      }
+    }))
+  }
 
-   handlePasswordConfirm(e) {
+  handlePasswordConfirm(e) {
     let value = e.target.value;
-    this.setState( prevState => ({ newUser : 
-         {...prevState.newUser, password2: value
-         }
-       }), () => console.log(this.state.newUser))
-   }
+    this.setState(prevState => ({
+      newUser:
+      {
+        ...prevState.newUser, password2: value
+      }
+    }))
+  }
 
-   handleEmail(e) {
+  handleEmail(e) {
     let value = e.target.value;
-    this.setState( prevState => ({ newUser : 
-         {...prevState.newUser, email: value
-         }
-       }), () => console.log(this.state.newUser))
-   }
+    this.setState(prevState => ({
+      newUser:
+      {
+        ...prevState.newUser, email: value
+      }
+    }))
+  }
 
   handleFormSubmit(e) {
     e.preventDefault();
@@ -100,17 +108,17 @@ class Register extends React.Component {
     let userData = this.state.newUser;
 
     registerUser(userData, true);
-  }   
+  }
 
   handleClearForm(e) {
-      e.preventDefault();
-      this.setState({ 
-        newUser: {
-          name: '',
-          email: '',
-          password: ''
-        },
-      })
+    e.preventDefault();
+    this.setState({
+      newUser: {
+        name: '',
+        email: '',
+        password: ''
+      },
+    })
   }
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -189,7 +197,7 @@ class Register extends React.Component {
                               name="name"
                               id="name"
                               type="text"
-                              onChange = {this.handleName}
+                              onChange={this.handleName}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -205,7 +213,7 @@ class Register extends React.Component {
                               name="email"
                               id="email"
                               type="email"
-                              onChange = {this.handleEmail}
+                              onChange={this.handleEmail}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -222,7 +230,7 @@ class Register extends React.Component {
                               name="password"
                               id="password"
                               autoComplete="off"
-                              onChange = {this.handlePassword}
+                              onChange={this.handlePassword}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -239,7 +247,7 @@ class Register extends React.Component {
                               name="password2"
                               id="password2"
                               autoComplete="off"
-                              onChange = {this.handlePasswordConfirm}
+                              onChange={this.handlePasswordConfirm}
                             />
                           </InputGroup>
                         </FormGroup>

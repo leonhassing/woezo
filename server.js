@@ -22,7 +22,9 @@ const dboptions = {
   socketTimeoutMS: 30000,
   keepAlive: true,
   reconnectTries: 30000,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
 };
 
 // Connect to MongoDB

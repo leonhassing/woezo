@@ -44,7 +44,23 @@ router.post('/register', (req, res) => {
         name: req.body.name,
         email: req.body.email,
         avatar,
-        password: req.body.password
+        address: '',
+        birthdate: '08/07/1990',
+        city: '',
+        phonenumber: '',
+        description: '',
+        password: req.body.password,
+        services: {
+          cleaning: false,
+          cat: false,
+          dog: false,
+          baby: false,
+          tutor: false,
+          handy: false,
+          it: false,
+          garden: false,
+          music: false
+        }
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -87,7 +103,7 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar, services: user.services }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
@@ -109,19 +125,58 @@ router.post('/login', (req, res) => {
   });
 });
 
-// @route   GET api/users/current
-// @desc    Return current user
+// @route   POST api/users/getpersonalinfo
+// @desc    Return user based off of user ID
 // @access  Private
-router.get(
-  '/current',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    res.json({
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email
-    });
+router.post(
+  '/getpersonalinfo', (req, res) => {
+    User.findById(req.body.userId)
+      .exec()
+      .then(doc => {
+        res.status(200).json(doc)
+      })
+      .catch(err => {
+        res.json({ error: err })
+      })
   }
 );
+
+// @route   POST api/users/services   passport.authenticate('jwt', { session: false }),
+// @desc    Tests users route
+// @access  Public
+router.post('/services', (req, res) => {
+  User
+    .findOneAndUpdate({ '_id': req.body.userId }, { $set: { 'services': req.body.services } })
+    .exec()
+    .then(doc => {
+      res.status(200).json(doc);
+    })
+    .catch(err => {
+      res.json({ error: err })
+    })
+});
+
+// @route   POST api/users/
+// @desc    Tests users route
+// @access  Public
+router.post('/setpersonalinfo', (req, res) => {
+  User
+    .findOneAndUpdate({ '_id': req.body.userId }, {
+      $set: {
+        'address': req.body.address,
+        'birthdate': new Date(req.body.birthdate),
+        'city': req.body.city,
+        'phonenumber': req.body.phonenumber,
+        'description': req.body.description
+      }
+    })
+    .exec()
+    .then(doc => {
+      res.status(200).json(doc);
+    })
+    .catch(err => {
+      res.json({ error: err })
+    })
+});
 
 module.exports = router;

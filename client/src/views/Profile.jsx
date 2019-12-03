@@ -22,8 +22,6 @@ import classnames from "classnames";
 
 // reactstrap components
 import {
-  Button,
-  Badge,
   Card,
   CardBody,
   Container,
@@ -33,32 +31,92 @@ import {
   TabContent,
   TabPane,
   Row,
-  Col,
-  Progress,
-  UncontrolledTooltip
+  Col
 } from "reactstrap";
 
 // core components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-import store from "../store";
 import { logoutUser } from "../actions/authActions";
-import 'assets/css/custom-location.css';
+import { updateProfileServices, updatePersonalInfo, getUserInfoFromId } from "../actions/profileActions";
+import ShowProfile from "components/ShowProfile";
+import EditProfile from "components/EditProfile";
+import store from "../store"
+import 'assets/css/invis-card.css';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: {},
+      name: '',
+      email: '',
+      address: '',
+      birthdate: '',
+      city: '',
+      phonenumber: '',
+      description: '',
+      services: '',
+      edit: false,
       iconTabs: 1
     };
     this.toggleNavs = this.toggleNavs.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
+    this.editProfileHandler = this.editProfileHandler.bind(this);
   }
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    this.getUserInfo();
+  }
+
+
+  editProfileHandler() {
+    this.setState({
+      edit: true
+    })
+  }
+
+  async getUserInfo() {
+    var reduxState = store.getState();
+    var userId = reduxState.auth.user.id
+    var userInfo = await getUserInfoFromId({ userId: userId });
+    console.log(userInfo);
+    this.setState({
+      name: userInfo.name,
+      email: userInfo.email,
+      address: userInfo.address,
+      birthdate: userInfo.birthdate,
+      city: userInfo.city,
+      phonenumber: userInfo.phonenumber,
+      description: userInfo.description,
+      services: userInfo.services
+    })
+  }
+
+
+  handleProfileSubmit(e, editState) {
+    e.preventDefault();
+    var reduxState = store.getState();
+    var userId = reduxState.auth.user.id
+    var requestBodyServices = {
+      userId: userId,
+      services: editState.services
+    }
+    updateProfileServices(requestBodyServices)
+    var requestBodyInfo = {
+      userId: userId,
+      address: editState.address,
+      birthdate: editState.birthdate,
+      city: editState.city,
+      phonenumber: editState.phonenumber,
+      description: editState.description
+    }
+    updatePersonalInfo(requestBodyInfo)
+    this.setState({
+      edit: false
+    })
   }
 
   handleLogout(e) {
@@ -74,9 +132,6 @@ class Profile extends React.Component {
   };
 
   render() {
-    var reduxState = store.getState();
-    var name = reduxState.auth.user.name;
-
     return (
       <>
         <MainNavbar />
@@ -169,93 +224,7 @@ class Profile extends React.Component {
                     <Card className="shadow">
                       <CardBody>
                         <TabContent activeTab={"iconTabs" + this.state.iconTabs}>
-                          <TabPane tabId="iconTabs1">
-                            <Row className="justify-content-center">
-                              <Col lg="4">
-                                <div className="card-profile-stats d-flex justify-content-left">
-                                  <h5><Badge color="primary">Katoppas</Badge></h5>
-                                  <h5><Badge className="ml-2" color="primary">Hondoppas</Badge></h5>
-                                  <h5><Badge className="ml-2" color="primary">IT-hulp</Badge></h5>
-                                </div>
-                              </Col>
-                              <Col className="justify-content-center" lg="3">
-                                <div className="card-profile-image">
-                                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                                    <img
-                                      alt="..."
-                                      className="rounded-circle"
-                                      src={require("assets/img/theme/team-4-800x800.jpg")}
-                                    />
-                                  </a>
-                                </div>
-                              </Col>
-                              <Col lg="4">
-                                <div className="card-profile-stats">
-                                  <Button
-                                    className="float-right"
-                                    color="default"
-                                    href="#pablo"
-                                    onClick={this.handleLogout}
-                                    size="sm"
-                                  >
-                                    Logout
-                                  </Button>
-                                </div>
-                              </Col>
-                            </Row>
-                            <div className="text-center mt-5">
-                              <h3>
-                                {name}{" "}
-                                <span className="font-weight-light">, 27</span>
-                              </h3>
-                              <div className="h6 font-weight-300">
-                                <i className="ni location_pin mr-2" />
-                                Bucharest, Romania
-                              </div>
-                              <div className="h6 mt-4">
-                                <i className="ni business_briefcase-24 mr-2" />
-                                Katoppas
-                              </div>
-                              <div>
-                                <i className="ni education_hat mr-2" />
-                                3 jaar ervaring
-                              </div>
-                            </div>
-                            <div className="mt-5 py-5 border-top text-center">
-                              <Row className="justify-content-center">
-                                <Col lg="9">
-                                  <p>
-                                    Mijn grootste passie is katten! Het liefst ben ik elke dag de hele dag omringt met ze. Ik heb er natuurlijk zelf ook een aantal, namelijk Henk en Sjaak. Maar alsnog pas ik heel graag op bij andere katten! Meer zielen meer vreugd zeg maar. Als ik je kan helpen, stuur me dan een berichtje.
-                                  </p>
-                                </Col>
-                              </Row>
-                            </div>
-                            <Row className="justify-content-center">
-                              <Button>
-                                Edit Profile...
-                              </Button>
-                            </Row>
-                            <div id="progress-bar" className="progress-wrapper">
-                              <div className="progress-info">
-                                <div className="progress-label">
-                                  <span>Profile completion</span>
-                                </div>
-                                <div className="progress-percentage">
-                                  <span>40%</span>
-                                </div>
-                              </div>
-                              <Progress max="100" value="40" />
-                            </div>
-                            <UncontrolledTooltip
-                              delay={100}
-                              placement="top"
-                              target="progress-bar"
-                              trigger="hover focus"
-                            >
-                              Let op! Je wordt sneller gevonden als je een volledig profiel hebt.
-                            </UncontrolledTooltip>
-
-                          </TabPane>
+                          {this.state.edit ? <EditProfile profileState={this.state} handleProfileSubmit={this.handleProfileSubmit} /> : <ShowProfile profileState={this.state} handleLogout={this.handleLogout} editProfileHandler={this.editProfileHandler} />}
                           <TabPane tabId="iconTabs2">
                             <p className="description">
                               Wow, it's empty in here. Seems like you haven't yet made any connections!

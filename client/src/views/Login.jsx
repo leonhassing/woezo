@@ -63,16 +63,14 @@ class Login extends React.Component {
   handleEmail(e) {
     let value = e.target.value;
     this.setState(
-      prevState => ({ loginUser: { ...prevState.loginUser, email: value } }),
-      () => console.log(this.state.loginUser)
+      prevState => ({ loginUser: { ...prevState.loginUser, email: value } })
     );
   }
 
   handlePassword(e) {
     let value = e.target.value;
     this.setState(
-      prevState => ({ loginUser: { ...prevState.loginUser, password: value } }),
-      () => console.log(this.state.loginUser)
+      prevState => ({ loginUser: { ...prevState.loginUser, password: value } })
     );
   }
 
