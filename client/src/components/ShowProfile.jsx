@@ -12,6 +12,13 @@ import {
 import store from "../store";
 
 class ShowProfile extends React.Component {
+    calculateAge(birthdate) { // birthdate is a date
+        var birthdate = new Date(birthdate);
+        var ageDifMs = Date.now() - birthdate.getTime();
+        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+
     render() {
         var reduxState = store.getState();
         var name = reduxState.auth.user.name;
@@ -53,13 +60,13 @@ class ShowProfile extends React.Component {
                     </Row>
                     <div className="text-center mt-5">
                         <h3>
-                            {name}{" "}
-                            <span className="font-weight-light">, 27</span>
+                            {this.props.profileState.name}{" "}
+                            <span className="font-weight-light">, {this.calculateAge(this.props.profileState.birthdate)}</span>
                         </h3>
                         <div className="h6 font-weight-300">
                             <i className="ni location_pin mr-2" />
-                            Bucharest, Romania
-                              </div>
+                            {this.props.profileState.city}
+                        </div>
                         <div className="h6 mt-4">
                             <i className="ni business_briefcase-24 mr-2" />
                             Katoppas

@@ -38,7 +38,7 @@ import {
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import { logoutUser } from "../actions/authActions";
-import { updateProfileServices, updatePersonalInfo, getUserInfoFromId } from "../actions/profileActions";
+import { updateProfileServices, updatePersonalInfo, getUserInfoFromId, setProfileServices } from "../actions/profileActions";
 import ShowProfile from "components/ShowProfile";
 import EditProfile from "components/EditProfile";
 import store from "../store"
@@ -82,7 +82,6 @@ class Profile extends React.Component {
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id
     var userInfo = await getUserInfoFromId({ userId: userId });
-    console.log(userInfo);
     this.setState({
       name: userInfo.name,
       email: userInfo.email,

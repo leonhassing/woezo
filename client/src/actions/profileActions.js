@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import axios from 'axios';
 import store from '../store'
-import { GET_ERRORS, SET_ALL_SERVICES } from './types';
+import { GET_ERRORS, SET_ALL_SERVICES, SET_ALL_PROFILE, SET_ALL_PERSONALINFO } from './types';
 
 // Services of user in database via API
 export const updateProfileServices = requestBody => {
@@ -20,6 +20,7 @@ export const updateProfileServices = requestBody => {
   }
   axios
     .post(servicesApi, requestBody)
+    .then(store.dispatch(setProfileServices(requestBody.services)))
     .catch(err =>
       store.dispatch({
         type: GET_ERRORS,
@@ -30,6 +31,9 @@ export const updateProfileServices = requestBody => {
 
 // Services of user in database via API
 export const updatePersonalInfo = requestBody => {
+  var profileInfo = requestBody
+  delete profileInfo.userId
+  store.dispatch(setProfileInfo(profileInfo));
   if (window.location.hostname === "localhost") {
     var infoApi =
       window.location.protocol +
@@ -71,6 +75,7 @@ export const getUserInfoFromId = requestBody => {
   return axios
     .post(userInfoApi, requestBody)
     .then(res => {
+      store.dispatch(setProfile(res.data));
       return res.data
     })
     .catch(err => {
@@ -82,10 +87,26 @@ export const getUserInfoFromId = requestBody => {
     })
 };
 
-// Services action dispenser
+// Profile services action dispenser
 export const setProfileServices = services => {
   return {
     type: SET_ALL_SERVICES,
     payload: services
+  };
+};
+
+// Profile info action dispenser
+export const setProfileInfo = info => {
+  return {
+    type: SET_ALL_PERSONALINFO,
+    payload: info
+  };
+};
+
+// Profile action dispenser
+export const setProfile = data => {
+  return {
+    type: SET_ALL_PROFILE,
+    payload: data
   };
 };
