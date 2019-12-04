@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const gravatar = require('gravatar');
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
@@ -34,16 +34,10 @@ router.post('/register', (req, res) => {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
     } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: '200', // Size
-        r: 'pg', // Rating
-        d: 'mm' // Default
-      });
 
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        avatar,
         address: '',
         birthdate: '08/07/1990',
         city: '',
@@ -103,7 +97,7 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar, services: user.services }; // Create JWT Payload
+        const payload = { id: user.id, name: user.name, services: user.services }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
@@ -160,6 +154,7 @@ router.post('/services', (req, res) => {
 // @desc    Tests users route
 // @access  Public
 router.post('/setpersonalinfo', (req, res) => {
+  console.log('hier')
   User
     .findOneAndUpdate({ '_id': req.body.userId }, {
       $set: {

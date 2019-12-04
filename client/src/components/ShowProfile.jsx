@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
     Row,
@@ -49,7 +50,6 @@ class ShowProfile extends React.Component {
                                 <Button
                                     className="float-right"
                                     color="default"
-                                    href="#pablo"
                                     onClick={this.props.handleLogout}
                                     size="sm"
                                 >
