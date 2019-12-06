@@ -38,7 +38,7 @@ import {
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import { logoutUser } from "../actions/authActions";
-import { updateProfileServices, updatePersonalInfo, getUserInfoFromId, setProfileServices } from "../actions/profileActions";
+import { updateProfileServices, updatePersonalInfo, getUserInfoFromId } from "../actions/profileActions";
 import ShowProfile from "components/ShowProfile";
 import EditProfile from "components/EditProfile";
 import store from "../store"
@@ -48,14 +48,6 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      email: '',
-      address: '',
-      birthdate: '',
-      city: '',
-      phonenumber: '',
-      description: '',
-      services: '',
       edit: false,
       iconTabs: 1
     };
@@ -81,24 +73,20 @@ class Profile extends React.Component {
   async getUserInfo() {
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id
-    var userInfo = await getUserInfoFromId({ userId: userId });
-    this.setState({
-      name: userInfo.name,
-      email: userInfo.email,
-      address: userInfo.address,
-      birthdate: userInfo.birthdate,
-      city: userInfo.city,
-      phonenumber: userInfo.phonenumber,
-      description: userInfo.description,
-      services: userInfo.services
-    })
+    await getUserInfoFromId({ userId: userId });
   }
-
 
   handleProfileSubmit(e, editState) {
     e.preventDefault();
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id
+
+
+    console.log(editState);
+    console.log(editState.birthdate);
+    if (editState.birthdate === null || editState.birthdate === "") {
+      editState.birthdate = reduxState.birthdate
+    }
     var requestBodyServices = {
       userId: userId,
       services: editState.services
@@ -223,7 +211,7 @@ class Profile extends React.Component {
                     <Card className="shadow">
                       <CardBody>
                         <TabContent activeTab={"iconTabs" + this.state.iconTabs}>
-                          {this.state.edit ? <EditProfile profileState={this.state} handleProfileSubmit={this.handleProfileSubmit} /> : <ShowProfile profileState={this.state} handleLogout={this.handleLogout} editProfileHandler={this.editProfileHandler} />}
+                          {this.state.edit ? <EditProfile handleProfileSubmit={this.handleProfileSubmit} /> : <ShowProfile handleLogout={this.handleLogout} editProfileHandler={this.editProfileHandler} />}
                           <TabPane tabId="iconTabs2">
                             <p className="description">
                               Wow, it's empty in here. Seems like you haven't yet made any connections!

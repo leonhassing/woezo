@@ -1,4 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import moment from "moment";
 // reactstrap components
 import {
     Button,
@@ -79,8 +82,14 @@ class EditProfile extends React.Component {
     }
 
     handleBirthdate(e) {
-        let value = e._d.setHours(12, 0, 0)
-        this.setState({ birthdate: value });
+        console.log("hier")
+        let birthdate
+        if (e.isAMomentObject) {
+            birthdate = e.toDate();
+        } else {
+            birthdate = e
+        }
+        this.setState({ birthdate: birthdate });
     }
 
     handleCity(e) {
@@ -221,6 +230,16 @@ class EditProfile extends React.Component {
     }
 
     render() {
+        /** 
+        this.setState({
+            city: this.props.city,
+            address: this.props.address,
+            phonenumber: this.props.phonenumber,
+            birthdate: this.props.birthdate,
+            description: this.props.description,
+            services: this.props.services
+        });
+        */
         return (
             <TabPane tabId="iconTabs1">
                 <Form role="form" onSubmit={(e) => { this.props.handleProfileSubmit(e, this.state) }}>
@@ -249,6 +268,7 @@ class EditProfile extends React.Component {
                                         }}
                                         dateFormat={true}
                                         timeFormat={false}
+                                        defaultValue={moment(this.props.birthdate)}
                                     />
                                 </InputGroup>
                             </FormGroup>
@@ -260,7 +280,7 @@ class EditProfile extends React.Component {
                         </Col>
                         <Col lg="3" sm="6">
                             <FormGroup>
-                                <Input onChange={this.handleCity} placeholder="Amsterdam" type="text" />
+                                <Input defaultValue={this.props.city} onChange={this.handleCity} placeholder="Amsterdam" type="text" />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -272,7 +292,7 @@ class EditProfile extends React.Component {
                         </Col>
                         <Col lg="3" sm="6">
                             <FormGroup>
-                                <Input onChange={this.handleAddress} placeholder="Stationsplein 1" type="text" />
+                                <Input defaultValue={this.props.address} onChange={(value) => this.handleAddress(value)} placeholder="Stationsplein 1" type="text" />
                             </FormGroup>
                         </Col>
                         <Col lg="3" sm="6">
@@ -282,7 +302,7 @@ class EditProfile extends React.Component {
                         </Col>
                         <Col lg="3" sm="6">
                             <FormGroup>
-                                <Input onChange={this.handlePhonenumber} placeholder="0612345678" type="text" />
+                                <Input defaultValue={this.props.phonemumber} onChange={this.handlePhonenumber} placeholder="0612345678" type="text" />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -294,7 +314,7 @@ class EditProfile extends React.Component {
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Input style={{ resize: "none" }} onChange={this.handleDescription} placeholder="I am awesome!" type="textarea" rows="5" />
+                                <Input defaultValue={this.props.description} style={{ resize: "none" }} onChange={this.handleDescription} placeholder="I am awesome!" type="textarea" rows="5" />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -496,4 +516,27 @@ class EditProfile extends React.Component {
     }
 }
 
-export default EditProfile;
+
+EditProfile.propTypes = {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    birthdate: PropTypes.object.isRequired,
+    city: PropTypes.string.isRequired,
+    phonenumber: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    services: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    name: state.profile.name,
+    email: state.profile.email,
+    address: state.profile.address,
+    birthdate: state.profile.birthdate,
+    city: state.profile.city,
+    phonenumber: state.profile.phonenumber,
+    description: state.profile.description,
+    services: state.profile.services
+});
+
+export default connect(mapStateToProps)(EditProfile);

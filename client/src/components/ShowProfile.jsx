@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 // reactstrap components
 import {
     Row,
@@ -10,19 +11,16 @@ import {
     UncontrolledTooltip,
     TabPane
 } from "reactstrap";
-import store from "../store";
 
 class ShowProfile extends React.Component {
-    calculateAge(birthdate) { // birthdate is a date
-        var birthdate = new Date(birthdate);
+    calculateAge(birthdateRaw) { // birthdate is a date
+        var birthdate = new Date(birthdateRaw);
         var ageDifMs = Date.now() - birthdate.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
     render() {
-        var reduxState = store.getState();
-        var name = reduxState.auth.user.name;
         return (
             <>
                 <TabPane tabId="iconTabs1">
@@ -60,12 +58,12 @@ class ShowProfile extends React.Component {
                     </Row>
                     <div className="text-center mt-5">
                         <h3>
-                            {this.props.profileState.name}{" "}
-                            <span className="font-weight-light">, {this.calculateAge(this.props.profileState.birthdate)}</span>
+                            {this.props.name}{" "}
+                            <span className="font-weight-light">, {this.calculateAge(this.props.birthdate)}</span>
                         </h3>
                         <div className="h6 font-weight-300">
                             <i className="ni location_pin mr-2" />
-                            {this.props.profileState.city}
+                            {this.props.city}
                         </div>
                         <div className="h6 mt-4">
                             <i className="ni business_briefcase-24 mr-2" />
@@ -117,4 +115,26 @@ class ShowProfile extends React.Component {
     }
 }
 
-export default ShowProfile;
+ShowProfile.propTypes = {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    birthdate: PropTypes.object.isRequired,
+    city: PropTypes.string.isRequired,
+    phonenumber: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    services: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    name: state.profile.name,
+    email: state.profile.email,
+    address: state.profile.address,
+    birthdate: state.profile.birthdate,
+    city: state.profile.city,
+    phonenumber: state.profile.phonenumber,
+    description: state.profile.description,
+    services: state.profile.services
+});
+
+export default connect(mapStateToProps)(ShowProfile);

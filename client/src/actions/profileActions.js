@@ -32,6 +32,7 @@ export const updateProfileServices = requestBody => {
 // Services of user in database via API
 export const updatePersonalInfo = requestBody => {
   var profileInfo = Object.create(requestBody);
+  console.log(requestBody);
   delete profileInfo.userId
   store.dispatch(setProfileInfo(profileInfo));
   if (window.location.hostname === "localhost") {

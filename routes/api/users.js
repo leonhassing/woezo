@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
+const moment = require('mongodb-moment');
 
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
@@ -154,12 +155,11 @@ router.post('/services', (req, res) => {
 // @desc    Tests users route
 // @access  Public
 router.post('/setpersonalinfo', (req, res) => {
-  console.log('hier')
   User
     .findOneAndUpdate({ '_id': req.body.userId }, {
       $set: {
         'address': req.body.address,
-        'birthdate': new Date(req.body.birthdate),
+        'birthdate': req.body.birthdate,
         'city': req.body.city,
         'phonenumber': req.body.phonenumber,
         'description': req.body.description

@@ -15,7 +15,7 @@ const initialState = {
   city: '',
   address: '',
   phonenumber: '',
-  birthdate: '',
+  birthdate: {},
   description: ''
 };
 
