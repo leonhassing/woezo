@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+
 // reactstrap components
 import {
     Row,
@@ -8,37 +7,78 @@ import {
     Badge,
     Button,
     Progress,
-    UncontrolledTooltip,
     TabPane
 } from "reactstrap";
 
 class ShowProfile extends React.Component {
-    calculateAge(birthdateRaw) { // birthdate is a date
-        var birthdate = new Date(birthdateRaw);
-        var ageDifMs = Date.now() - birthdate.getTime();
+    calculateAge(birthday) {
+        var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
+    isEmpty(str) {
+        return (!str || 0 === str.length);
+    }
+
     render() {
+        const badges = [];
+        var first = true;
+        var count = 0;
+        const friendlyNames = {
+            cleaning: "Schoonmaker",
+            dog: "Honduitlaat",
+            cat: "Katoppas",
+            baby: "Oppas",
+            tutor: "Bijles",
+            handy: "Klusjesman",
+            it: "IT-hulp",
+            garden: "Tuinier",
+            music: "Muziekles"
+        }
+
+        console.log(this.props.profileData.proficepicture);
+        console.log(this.props.profileData.proficepictureURL);
+        for (const [service, bool] of Object.entries(this.props.profileData.services)) {
+            if (bool && count < 3) {
+                count += 1;
+                if (first) {
+                    badges.push(<h5 key={service}><Badge color="primary">{friendlyNames[service]}</Badge></h5>);
+                } else {
+                    badges.push(<h5 key={service}><Badge className="ml-2" color="primary">{friendlyNames[service]}</Badge></h5>);
+                }
+                first = false;
+            }
+        }
+
+        var profileProgress = 0
+        if (!this.isEmpty(this.props.profileData.name)) { profileProgress += 1; }
+        if (!this.isEmpty(this.props.profileData.email)) { profileProgress += 1; }
+        if (!this.isEmpty(this.props.profileData.birthdate)) { profileProgress += 1; }
+        if (!this.isEmpty(this.props.profileData.city)) { profileProgress += 1; }
+        if (!this.isEmpty(this.props.profileData.phonenumber)) { profileProgress += 1; }
+        if (!this.isEmpty(this.props.profileData.address)) { profileProgress += 1; }
+        if (!this.isEmpty(this.props.profileData.description)) { profileProgress += 1; }
+
+
         return (
             <>
                 <TabPane tabId="iconTabs1">
                     <Row className="justify-content-center">
                         <Col lg="4">
                             <div className="card-profile-stats d-flex justify-content-left">
-                                <h5><Badge color="primary">Katoppas</Badge></h5>
-                                <h5><Badge className="ml-2" color="primary">Hondoppas</Badge></h5>
-                                <h5><Badge className="ml-2" color="primary">IT-hulp</Badge></h5>
+                                {badges}
                             </div>
                         </Col>
                         <Col className="justify-content-center" lg="3">
                             <div className="card-profile-image">
                                 <a href="#pablo" onClick={e => e.preventDefault()}>
                                     <img
+                                        height="200px"
+                                        width="200px"
                                         alt="..."
                                         className="rounded-circle"
-                                        src={require("assets/img/theme/team-4-800x800.jpg")}
+                                        src={this.props.profileData.profilepictureURL} //require("assets/img/theme/team-4-800x800.jpg")
                                     />
                                 </a>
                             </div>
@@ -58,28 +98,20 @@ class ShowProfile extends React.Component {
                     </Row>
                     <div className="text-center mt-5">
                         <h3>
-                            {this.props.name}{" "}
-                            <span className="font-weight-light">, {this.calculateAge(this.props.birthdate)}</span>
+                            {this.props.profileData.name}{" "}
+                            <span className="font-weight-light">, {this.calculateAge(new Date(this.props.profileData.birthdate))}</span>
                         </h3>
                         <div className="h6 font-weight-300">
                             <i className="ni location_pin mr-2" />
-                            {this.props.city}
+                            {this.props.profileData.address}, {this.props.profileData.city}
                         </div>
-                        <div className="h6 mt-4">
-                            <i className="ni business_briefcase-24 mr-2" />
-                            Katoppas
-                              </div>
-                        <div>
-                            <i className="ni education_hat mr-2" />
-                            3 jaar ervaring
-                              </div>
                     </div>
                     <div className="mt-5 py-5 border-top text-center">
                         <Row className="justify-content-center">
                             <Col lg="9">
                                 <p>
-                                    Mijn grootste passie is katten! Het liefst ben ik elke dag de hele dag omringt met ze. Ik heb er natuurlijk zelf ook een aantal, namelijk Henk en Sjaak. Maar alsnog pas ik heel graag op bij andere katten! Meer zielen meer vreugd zeg maar. Als ik je kan helpen, stuur me dan een berichtje.
-                                  </p>
+                                    {this.props.profileData.description}
+                                </p>
                             </Col>
                         </Row>
                     </div>
@@ -87,7 +119,7 @@ class ShowProfile extends React.Component {
                         <Button
                             onClick={this.props.editProfileHandler}
                         >
-                            Edit Profile...
+                            Wijzig profiel
                         </Button>
                     </Row>
                     <div id="progress-bar" className="progress-wrapper">
@@ -96,45 +128,15 @@ class ShowProfile extends React.Component {
                                 <span>Profile completion</span>
                             </div>
                             <div className="progress-percentage">
-                                <span>40%</span>
+                                <span>{Math.round(100 * profileProgress / 7)}%</span>
                             </div>
                         </div>
-                        <Progress max="100" value="40" />
+                        <Progress max="7" value={profileProgress} />
                     </div>
-                    <UncontrolledTooltip
-                        delay={100}
-                        placement="top"
-                        target="progress-bar"
-                        trigger="hover focus"
-                    >
-                        Let op! Je wordt sneller gevonden als je een volledig profiel hebt.
-                    </UncontrolledTooltip>
                 </TabPane>
             </>
         );
     }
 }
 
-ShowProfile.propTypes = {
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
-    birthdate: PropTypes.object.isRequired,
-    city: PropTypes.string.isRequired,
-    phonenumber: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    services: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-    name: state.profile.name,
-    email: state.profile.email,
-    address: state.profile.address,
-    birthdate: state.profile.birthdate,
-    city: state.profile.city,
-    phonenumber: state.profile.phonenumber,
-    description: state.profile.description,
-    services: state.profile.services
-});
-
-export default connect(mapStateToProps)(ShowProfile);
+export default ShowProfile;

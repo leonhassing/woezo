@@ -38,7 +38,7 @@ import {
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import { logoutUser } from "../actions/authActions";
-import { updateProfileServices, updatePersonalInfo, getUserInfoFromId } from "../actions/profileActions";
+import { setProfileInfo, getUserInfoFromId } from "../actions/profileActions";
 import ShowProfile from "components/ShowProfile";
 import EditProfile from "components/EditProfile";
 import store from "../store"
@@ -48,6 +48,26 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      address: '',
+      birthdate: '',
+      city: '',
+      description: '',
+      email: '',
+      name: '',
+      phonenumber: '',
+      profilepicture: '',
+      profilepictureURL: '',
+      services: {
+        cleaning: false,
+        cat: false,
+        dog: false,
+        baby: false,
+        tutor: false,
+        handy: false,
+        it: false,
+        garden: false,
+        music: false
+      },
       edit: false,
       iconTabs: 1
     };
@@ -56,13 +76,13 @@ class Profile extends React.Component {
     this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
     this.editProfileHandler = this.editProfileHandler.bind(this);
   }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
     this.getUserInfo();
   }
-
 
   editProfileHandler() {
     this.setState({
@@ -73,35 +93,46 @@ class Profile extends React.Component {
   async getUserInfo() {
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id
-    await getUserInfoFromId({ userId: userId });
+    var profileInfo = await getUserInfoFromId({ userId: userId });
+    this.setState({
+      address: profileInfo.address,
+      birthdate: profileInfo.birthdate,
+      city: profileInfo.city,
+      description: profileInfo.description,
+      email: profileInfo.email,
+      name: profileInfo.name,
+      phonenumber: profileInfo.phonenumber,
+      services: profileInfo.services
+    })
   }
 
   handleProfileSubmit(e, editState) {
     e.preventDefault();
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id
-
-
-    console.log(editState);
-    console.log(editState.birthdate);
-    if (editState.birthdate === null || editState.birthdate === "") {
-      editState.birthdate = reduxState.birthdate
-    }
-    var requestBodyServices = {
-      userId: userId,
-      services: editState.services
-    }
-    updateProfileServices(requestBodyServices)
     var requestBodyInfo = {
       userId: userId,
       address: editState.address,
       birthdate: editState.birthdate,
       city: editState.city,
+      name: editState.name,
+      email: editState.email,
       phonenumber: editState.phonenumber,
-      description: editState.description
+      description: editState.description,
+      services: editState.services
     }
-    updatePersonalInfo(requestBodyInfo)
+    setProfileInfo(requestBodyInfo)
     this.setState({
+      address: editState.address,
+      birthdate: editState.birthdate,
+      city: editState.city,
+      description: editState.description,
+      email: editState.email,
+      profilepicture: editState.profilepicture,
+      profilepictureURL: editState.profilepictureURL,
+      name: editState.name,
+      phonenumber: editState.phonenumber,
+      services: editState.services,
       edit: false
     })
   }
@@ -211,7 +242,7 @@ class Profile extends React.Component {
                     <Card className="shadow">
                       <CardBody>
                         <TabContent activeTab={"iconTabs" + this.state.iconTabs}>
-                          {this.state.edit ? <EditProfile handleProfileSubmit={this.handleProfileSubmit} /> : <ShowProfile handleLogout={this.handleLogout} editProfileHandler={this.editProfileHandler} />}
+                          {this.state.edit ? <EditProfile handleProfileSubmit={this.handleProfileSubmit} profileData={this.state} /> : <ShowProfile handleLogout={this.handleLogout} editProfileHandler={this.editProfileHandler} profileData={this.state} />}
                           <TabPane tabId="iconTabs2">
                             <p className="description">
                               Wow, it's empty in here. Seems like you haven't yet made any connections!

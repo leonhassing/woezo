@@ -2,11 +2,9 @@ import { combineReducers } from 'redux';
 import authReducer from './authReducer';
 import errorReducer from './errorReducer';
 import browseReducer from './browseReducer';
-import profileReducer from './profileReducer';
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
-  browse: browseReducer,
-  profile: profileReducer
+  browse: browseReducer
 });

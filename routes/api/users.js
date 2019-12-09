@@ -120,15 +120,25 @@ router.post('/login', (req, res) => {
   });
 });
 
-// @route   POST api/users/getpersonalinfo
+// @route   POST api/users/getprofileinfo
 // @desc    Return user based off of user ID
 // @access  Private
 router.post(
-  '/getpersonalinfo', (req, res) => {
+  '/getprofileinfo', (req, res) => {
     User.findById(req.body.userId)
       .exec()
       .then(doc => {
-        res.status(200).json(doc)
+        const response = {
+          address: doc.address,
+          city: doc.city,
+          birthdate: doc.birthdate,
+          phonenumber: doc.phonenumber,
+          description: doc.description,
+          services: doc.services,
+          name: doc.name,
+          email: doc.email
+        }
+        res.status(200).json(response)
       })
       .catch(err => {
         res.json({ error: err })
@@ -136,33 +146,22 @@ router.post(
   }
 );
 
-// @route   POST api/users/services   passport.authenticate('jwt', { session: false }),
-// @desc    Tests users route
+// @route   POST api/users/setprofileinfo   passport.authenticate('jwt', { session: false }),
+// @desc    Set profile info
 // @access  Public
-router.post('/services', (req, res) => {
-  User
-    .findOneAndUpdate({ '_id': req.body.userId }, { $set: { 'services': req.body.services } })
-    .exec()
-    .then(doc => {
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      res.json({ error: err })
-    })
-});
 
-// @route   POST api/users/
-// @desc    Tests users route
-// @access  Public
-router.post('/setpersonalinfo', (req, res) => {
+router.post('/setprofileinfo', (req, res) => {
   User
     .findOneAndUpdate({ '_id': req.body.userId }, {
       $set: {
         'address': req.body.address,
         'birthdate': req.body.birthdate,
+        'name': req.body.name,
+        'email': req.body.email,
         'city': req.body.city,
         'phonenumber': req.body.phonenumber,
-        'description': req.body.description
+        'description': req.body.description,
+        'services': req.body.services
       }
     })
     .exec()

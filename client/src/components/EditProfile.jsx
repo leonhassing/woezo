@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import moment from "moment";
+import Croppie from "croppie";
+import 'assets/css/croppie.css'
 // reactstrap components
 import {
     Button,
@@ -22,26 +22,33 @@ class EditProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            city: '',
-            address: '',
-            phonenumber: '',
-            birthdate: '',
-            description: '',
-            profilepicture: '',
+            name: this.props.profileData.name,
+            email: this.props.profileData.email,
+            city: this.props.profileData.city,
+            address: this.props.profileData.address,
+            phonenumber: this.props.profileData.phonenumber,
+            birthdate: this.props.profileData.birthdate,
+            description: this.props.profileData.description,
+            profilepicture: this.props.profileData.profilepicture,
+            profilepictureURL: this.props.profileData.profilepictureURL,
+            croppieobject: this.props.croppieobject,
             services: {
-                cleaning: false,
-                cat: false,
-                dog: false,
-                baby: false,
-                tutor: false,
-                handy: false,
-                it: false,
-                garden: false,
-                music: false
+                cleaning: this.props.profileData.services.cleaning,
+                cat: this.props.profileData.services.cat,
+                dog: this.props.profileData.services.dog,
+                baby: this.props.profileData.services.baby,
+                tutor: this.props.profileData.services.tutor,
+                handy: this.props.profileData.services.handy,
+                it: this.props.profileData.services.it,
+                garden: this.props.profileData.services.garden,
+                music: this.props.profileData.services.music
             }
         };
-        this.handleClearForm = this.handleClearForm.bind(this);
+
+        this.handlePictureUpload = this.handlePictureUpload.bind(this);
         this.handleCity = this.handleCity.bind(this);
+        this.handleName = this.handleName.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
         this.handlePhonenumber = this.handlePhonenumber.bind(this);
         this.handleAddress = this.handleAddress.bind(this);
         this.handleBirthdate = this.handleBirthdate.bind(this);
@@ -57,39 +64,18 @@ class EditProfile extends React.Component {
         this.handleMusic = this.handleMusic.bind(this);
     }
 
-
-    handleClearForm(e) {
-        e.preventDefault();
-        this.setState({
-            city: '',
-            address: '',
-            phonenumber: '',
-            birthdate: '',
-            description: '',
-            profilepicture: '',
-            services: {
-                cleaning: false,
-                cat: false,
-                dog: false,
-                baby: false,
-                tutor: false,
-                handy: false,
-                it: false,
-                garden: false,
-                music: false
-            }
-        })
+    handleBirthdate(e) {
+        this.setState({ birthdate: e.toDate() });
     }
 
-    handleBirthdate(e) {
-        console.log("hier")
-        let birthdate
-        if (e.isAMomentObject) {
-            birthdate = e.toDate();
-        } else {
-            birthdate = e
-        }
-        this.setState({ birthdate: birthdate });
+    handleName(e) {
+        let value = e.target.value;
+        this.setState({ name: value });
+    }
+
+    handleEmail(e) {
+        let value = e.target.value;
+        this.setState({ email: value });
     }
 
     handleCity(e) {
@@ -113,133 +99,113 @@ class EditProfile extends React.Component {
     }
 
     handleCleaning(e) {
-        let value = e.target.value;
-        let cleaningValue;
-        if (value === "on") { cleaningValue = true }
-        else { cleaningValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                cleaning: cleaningValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.cleaning = true }
+        else { newServices.cleaning = false }
+        this.setState({ services: newServices })
     }
 
     handleCat(e) {
-        let value = e.target.value;
-        let catValue;
-        if (value === "on") { catValue = true }
-        else { catValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                cat: catValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.cat = true }
+        else { newServices.cat = false }
+        this.setState({ services: newServices })
     }
 
     handleDog(e) {
-        let value = e.target.value;
-        let dogValue;
-        if (value === "on") { dogValue = true }
-        else { dogValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                dog: dogValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.dog = true }
+        else { newServices.dog = false }
+        this.setState({ services: newServices })
     }
 
     handleBaby(e) {
-        let value = e.target.value;
-        let babyValue;
-        if (value === "on") { babyValue = true }
-        else { babyValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                baby: babyValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.baby = true }
+        else { newServices.baby = false }
+        this.setState({ services: newServices })
     }
 
     handleTutor(e) {
-        let value = e.target.value;
-        let tutorValue;
-        if (value === "on") { tutorValue = true }
-        else { tutorValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                tutor: tutorValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.tutor = true }
+        else { newServices.tutor = false }
+        this.setState({ services: newServices })
     }
 
     handleHandy(e) {
-        let value = e.target.value;
-        let handyValue;
-        if (value === "on") { handyValue = true }
-        else { handyValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                handy: handyValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.handy = true }
+        else { newServices.handy = false }
+        this.setState({ services: newServices })
     }
 
     handleIt(e) {
-        let value = e.target.value;
-        let itValue;
-        if (value === "on") { itValue = true }
-        else { itValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                it: itValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.it = true }
+        else { newServices.it = false }
+        this.setState({ services: newServices })
     }
 
     handleGarden(e) {
-        let value = e.target.value;
-        let gardenValue;
-        if (value === "on") { gardenValue = true }
-        else { gardenValue = false }
-        this.setState({
-            services: {
-                ...this.state.services,
-                garden: gardenValue
-            }
-        })
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.garden = true }
+        else { newServices.garden = false }
+        this.setState({ services: newServices })
     }
 
     handleMusic(e) {
-        let value = e.target.value;
-        let musicValue;
-        if (value === "on") { musicValue = true }
-        else { musicValue = false }
+        var newServices = { ...this.state.services }
+        if (e.target.checked) { newServices.music = true }
+        else { newServices.music = false }
+        this.setState({ services: newServices })
+    }
+
+    handlePictureUpload(e) {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                profilepicture: file,
+                profilepictureURL: reader.result
+            });
+            this.state.croppieobject.bind({
+                url: reader.result,
+                orientation: 4
+            })
+        }
+        reader.readAsDataURL(file);
         this.setState({
-            services: {
-                ...this.state.services,
-                music: musicValue
-            }
-        })
+            profilepicture: file,
+            profilepictureURL: reader.result
+        });
+    }
+
+    componentDidMount() {
+        var el = document.getElementById('upload-demo');
+        var croppie
+        this.setState({
+            croppieobject: croppie = new Croppie(el, {
+                enableExif: true,
+                boundary: { width: 300, height: 300 },
+                viewport: { width: 200, height: 200, type: 'circle' },
+                enforceBoundary: true,
+                showZoomer: true,
+                enableOrientation: false
+            })
+        });
+
+        croppie.bind({
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Philips_PM5544.svg',
+            orientation: 4
+        });
+
     }
 
     render() {
-        /** 
-        this.setState({
-            city: this.props.city,
-            address: this.props.address,
-            phonenumber: this.props.phonenumber,
-            birthdate: this.props.birthdate,
-            description: this.props.description,
-            services: this.props.services
-        });
-        */
         return (
             <TabPane tabId="iconTabs1">
                 <Form role="form" onSubmit={(e) => { this.props.handleProfileSubmit(e, this.state) }}>
@@ -247,6 +213,28 @@ class EditProfile extends React.Component {
                         Wijzig je profiel
                     </h2>
                     <br />
+                    <Row >
+                        <Col lg="3" sm="6">
+                            <p className="lead my-0">
+                                Naam
+                                </p>
+                        </Col>
+                        <Col lg="3" sm="6">
+                            <FormGroup>
+                                <Input defaultValue={this.props.profileData.name} onChange={this.handleName} placeholder="Stationsplein 1" type="text" />
+                            </FormGroup>
+                        </Col>
+                        <Col lg="3" sm="6">
+                            <p className="lead my-0">
+                                Email
+                                </p>
+                        </Col>
+                        <Col lg="3" sm="6">
+                            <FormGroup>
+                                <Input defaultValue={this.props.profileData.email} onChange={this.handleEmail} placeholder="0612345678" type="text" />
+                            </FormGroup>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col lg="3" sm="6">
                             <p className="lead my-0">
@@ -268,7 +256,7 @@ class EditProfile extends React.Component {
                                         }}
                                         dateFormat={true}
                                         timeFormat={false}
-                                        defaultValue={moment(this.props.birthdate)}
+                                        defaultValue={moment(this.props.profileData.birthdate)}
                                     />
                                 </InputGroup>
                             </FormGroup>
@@ -280,7 +268,7 @@ class EditProfile extends React.Component {
                         </Col>
                         <Col lg="3" sm="6">
                             <FormGroup>
-                                <Input defaultValue={this.props.city} onChange={this.handleCity} placeholder="Amsterdam" type="text" />
+                                <Input defaultValue={this.props.profileData.city} onChange={this.handleCity} placeholder="Amsterdam" type="text" />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -292,7 +280,7 @@ class EditProfile extends React.Component {
                         </Col>
                         <Col lg="3" sm="6">
                             <FormGroup>
-                                <Input defaultValue={this.props.address} onChange={(value) => this.handleAddress(value)} placeholder="Stationsplein 1" type="text" />
+                                <Input defaultValue={this.props.profileData.address} onChange={this.handleAddress} placeholder="Stationsplein 1" type="text" />
                             </FormGroup>
                         </Col>
                         <Col lg="3" sm="6">
@@ -302,10 +290,32 @@ class EditProfile extends React.Component {
                         </Col>
                         <Col lg="3" sm="6">
                             <FormGroup>
-                                <Input defaultValue={this.props.phonemumber} onChange={this.handlePhonenumber} placeholder="0612345678" type="text" />
+                                <Input defaultValue={this.props.profileData.phonenumber} onChange={this.handlePhonenumber} placeholder="0612345678" type="text" />
                             </FormGroup>
                         </Col>
                     </Row>
+                    <Row >
+                        <Col lg="3" sm="6">
+                            <p className="lead my-0">
+                                Profielfoto
+                                </p>
+                        </Col>
+                        <Col lg="3" sm="6">
+                            <FormGroup>
+                                <div className="custom-file">
+                                    <input onChange={(e) => { this.handlePictureUpload(e) }} type="file" className="custom-file-input" id="customFileLangHTML" />
+                                    <label className="custom-file-label" htmlFor="customFileLangHTML" data-browse="Bestand kiezen">Voeg toe</label>
+                                </div>
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row >
+                        <Col lg="6" sm="6">
+                            <div id="upload-demo" className="pt-4" style={{ widht: 300, height: 300 }}></div>
+                        </Col>
+                    </Row>
+                    <br />
+                    <br />
                     <br />
                     <h2>
                         Vertel wat over jezelf!
@@ -314,7 +324,7 @@ class EditProfile extends React.Component {
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Input defaultValue={this.props.description} style={{ resize: "none" }} onChange={this.handleDescription} placeholder="I am awesome!" type="textarea" rows="5" />
+                                <Input defaultValue={this.props.profileData.description} style={{ resize: "none" }} onChange={this.handleDescription} placeholder="I am awesome!" type="textarea" rows="5" />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -516,27 +526,4 @@ class EditProfile extends React.Component {
     }
 }
 
-
-EditProfile.propTypes = {
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
-    birthdate: PropTypes.object.isRequired,
-    city: PropTypes.string.isRequired,
-    phonenumber: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    services: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-    name: state.profile.name,
-    email: state.profile.email,
-    address: state.profile.address,
-    birthdate: state.profile.birthdate,
-    city: state.profile.city,
-    phonenumber: state.profile.phonenumber,
-    description: state.profile.description,
-    services: state.profile.services
-});
-
-export default connect(mapStateToProps)(EditProfile);
+export default EditProfile;
