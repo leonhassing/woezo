@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
@@ -25,7 +25,7 @@ const UserSchema = new Schema({
   },
   birthdate: {
     type: Date,
-    default: '08/07/1990'
+    default: "08/07/1990"
   },
   phonenumber: {
     type: String,
@@ -85,7 +85,19 @@ const UserSchema = new Schema({
       default: false,
       required: true
     }
+  },
+  profilepicture: {
+    data: {
+      type: Buffer,
+      required: true,
+      default: ""
+    },
+    contentType: {
+      type: String,
+      required: true,
+      default: ""
+    }
   }
 });
 
-module.exports = User = mongoose.model('users', UserSchema);
+module.exports = User = mongoose.model("users", UserSchema);

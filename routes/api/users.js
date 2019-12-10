@@ -1,28 +1,28 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
-const passport = require('passport');
-const moment = require('mongodb-moment');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+const passport = require("passport");
+const moment = require("mongodb-moment");
 
 // Load Input Validation
-const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require('../../validation/login');
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const User = require('../../models/User');
+const User = require("../../models/User");
 
 // @route   GET api/users/test
 // @desc    Tests users route
 // @access  Public
-router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
+router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-router.post('/register', (req, res) => {
+router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation
@@ -32,18 +32,17 @@ router.post('/register', (req, res) => {
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      errors.email = 'Email already exists';
+      errors.email = "Email already exists";
       return res.status(400).json(errors);
     } else {
-
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        address: '',
-        birthdate: '08/07/1990',
-        city: '',
-        phonenumber: '',
-        description: '',
+        address: "",
+        birthdate: "08/07/1990",
+        city: "",
+        phonenumber: "",
+        description: "",
         password: req.body.password,
         services: {
           cleaning: false,
@@ -55,9 +54,13 @@ router.post('/register', (req, res) => {
           it: false,
           garden: false,
           music: false
+        },
+        profilepicture: {
+          data: "",
+          contentType: ""
         }
       });
-
+      console.log(req);
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
@@ -75,7 +78,7 @@ router.post('/register', (req, res) => {
 // @route   POST api/users/login
 // @desc    Login User / Returning JWT Token
 // @access  Public
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check Validation
@@ -90,7 +93,7 @@ router.post('/login', (req, res) => {
   User.findOne({ email }).then(user => {
     // Check for user
     if (!user) {
-      errors.email = 'User not found';
+      errors.email = "User not found";
       return res.status(404).json(errors);
     }
 
@@ -98,7 +101,11 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name, services: user.services }; // Create JWT Payload
+        const payload = {
+          id: user.id,
+          name: user.name,
+          services: user.services
+        }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
@@ -108,12 +115,12 @@ router.post('/login', (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: 'Bearer ' + token
+              token: "Bearer " + token
             });
           }
         );
       } else {
-        errors.password = 'Password incorrect';
+        errors.password = "Password incorrect";
         return res.status(400).json(errors);
       }
     });
@@ -123,54 +130,59 @@ router.post('/login', (req, res) => {
 // @route   POST api/users/getprofileinfo
 // @desc    Return user based off of user ID
 // @access  Private
-router.post(
-  '/getprofileinfo', (req, res) => {
-    User.findById(req.body.userId)
-      .exec()
-      .then(doc => {
-        const response = {
-          address: doc.address,
-          city: doc.city,
-          birthdate: doc.birthdate,
-          phonenumber: doc.phonenumber,
-          description: doc.description,
-          services: doc.services,
-          name: doc.name,
-          email: doc.email
-        }
-        res.status(200).json(response)
-      })
-      .catch(err => {
-        res.json({ error: err })
-      })
-  }
-);
+router.post("/getprofileinfo", (req, res) => {
+  User.findById(req.body.userId)
+    .exec()
+    .then(doc => {
+      const response = {
+        address: doc.address,
+        city: doc.city,
+        birthdate: doc.birthdate,
+        phonenumber: doc.phonenumber,
+        description: doc.description,
+        services: doc.services,
+        name: doc.name,
+        email: doc.email,
+        profilepicture: doc.profilepicture,
+        profilepictureURL: doc.profilepictureURL
+      };
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.json({ error: err });
+    });
+});
 
 // @route   POST api/users/setprofileinfo   passport.authenticate('jwt', { session: false }),
 // @desc    Set profile info
 // @access  Public
 
-router.post('/setprofileinfo', (req, res) => {
-  User
-    .findOneAndUpdate({ '_id': req.body.userId }, {
+router.post("/setprofileinfo", (req, res) => {
+  console.log(req);
+  User.findOneAndUpdate(
+    { _id: req.body.userId },
+    {
       $set: {
-        'address': req.body.address,
-        'birthdate': req.body.birthdate,
-        'name': req.body.name,
-        'email': req.body.email,
-        'city': req.body.city,
-        'phonenumber': req.body.phonenumber,
-        'description': req.body.description,
-        'services': req.body.services
+        address: req.body.address,
+        birthdate: req.body.birthdate,
+        name: req.body.name,
+        email: req.body.email,
+        city: req.body.city,
+        phonenumber: req.body.phonenumber,
+        description: req.body.description,
+        services: req.body.services,
+        profilepicture: req.body.profilepicture,
+        profilepictureURL: req.body.profilepictureURL
       }
-    })
+    }
+  )
     .exec()
     .then(doc => {
       res.status(200).json(doc);
     })
     .catch(err => {
-      res.json({ error: err })
-    })
+      res.json({ error: err });
+    });
 });
 
 module.exports = router;

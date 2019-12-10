@@ -41,22 +41,22 @@ import { logoutUser } from "../actions/authActions";
 import { setProfileInfo, getUserInfoFromId } from "../actions/profileActions";
 import ShowProfile from "components/ShowProfile";
 import EditProfile from "components/EditProfile";
-import store from "../store"
-import 'assets/css/invis-card.css';
+import store from "../store";
+import "assets/css/invis-card.css";
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: '',
-      birthdate: '',
-      city: '',
-      description: '',
-      email: '',
-      name: '',
-      phonenumber: '',
-      profilepicture: '',
-      profilepictureURL: '',
+      address: "",
+      birthdate: "",
+      city: "",
+      description: "",
+      email: "",
+      name: "",
+      phonenumber: "",
+      profilepicture: "",
+      profilepictureURL: "",
       services: {
         cleaning: false,
         cat: false,
@@ -87,12 +87,12 @@ class Profile extends React.Component {
   editProfileHandler() {
     this.setState({
       edit: true
-    })
+    });
   }
 
   async getUserInfo() {
     var reduxState = store.getState();
-    var userId = reduxState.auth.user.id
+    var userId = reduxState.auth.user.id;
     var profileInfo = await getUserInfoFromId({ userId: userId });
     this.setState({
       address: profileInfo.address,
@@ -102,14 +102,16 @@ class Profile extends React.Component {
       email: profileInfo.email,
       name: profileInfo.name,
       phonenumber: profileInfo.phonenumber,
-      services: profileInfo.services
-    })
+      services: profileInfo.services,
+      profilepicture: profileInfo.profilepicture,
+      profilepictureURL: profileInfo.profilepictureURL
+    });
   }
 
   handleProfileSubmit(e, editState) {
     e.preventDefault();
     var reduxState = store.getState();
-    var userId = reduxState.auth.user.id
+    var userId = reduxState.auth.user.id;
     var requestBodyInfo = {
       userId: userId,
       address: editState.address,
@@ -119,9 +121,11 @@ class Profile extends React.Component {
       email: editState.email,
       phonenumber: editState.phonenumber,
       description: editState.description,
-      services: editState.services
-    }
-    setProfileInfo(requestBodyInfo)
+      services: editState.services,
+      profilepicture: editState.profilepicture,
+      profilepictureURL: editState.profilepictureURL
+    };
+    setProfileInfo(requestBodyInfo);
     this.setState({
       address: editState.address,
       birthdate: editState.birthdate,
@@ -133,8 +137,10 @@ class Profile extends React.Component {
       name: editState.name,
       phonenumber: editState.phonenumber,
       services: editState.services,
-      edit: false
-    })
+      edit: false,
+      profilepicture: editState.profilepicture,
+      profilepictureURL: editState.profilepictureURL
+    });
   }
 
   handleLogout(e) {
@@ -207,7 +213,7 @@ class Profile extends React.Component {
                           >
                             <i className="fa fa-user mr-2" />
                             Profile
-                        </NavLink>
+                          </NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink
@@ -221,7 +227,7 @@ class Profile extends React.Component {
                           >
                             <i className="fa fa-exchange mr-2" />
                             Connections
-                        </NavLink>
+                          </NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink
@@ -235,23 +241,38 @@ class Profile extends React.Component {
                           >
                             <i className="fa fa-comment mr-2" />
                             Messages
-                        </NavLink>
+                          </NavLink>
                         </NavItem>
                       </Nav>
                     </div>
                     <Card className="shadow">
                       <CardBody>
-                        <TabContent activeTab={"iconTabs" + this.state.iconTabs}>
-                          {this.state.edit ? <EditProfile handleProfileSubmit={this.handleProfileSubmit} profileData={this.state} /> : <ShowProfile handleLogout={this.handleLogout} editProfileHandler={this.editProfileHandler} profileData={this.state} />}
+                        <TabContent
+                          activeTab={"iconTabs" + this.state.iconTabs}
+                        >
+                          {this.state.edit ? (
+                            <EditProfile
+                              handleProfileSubmit={this.handleProfileSubmit}
+                              profileData={this.state}
+                            />
+                          ) : (
+                            <ShowProfile
+                              handleLogout={this.handleLogout}
+                              editProfileHandler={this.editProfileHandler}
+                              profileData={this.state}
+                            />
+                          )}
                           <TabPane tabId="iconTabs2">
                             <p className="description">
-                              Wow, it's empty in here. Seems like you haven't yet made any connections!
-                          </p>
+                              Wow, it's empty in here. Seems like you haven't
+                              yet made any connections!
+                            </p>
                           </TabPane>
                           <TabPane tabId="iconTabs3">
                             <p className="description">
-                              Wow, it's empty in here. Seems you don't have any messages!
-                          </p>
+                              Wow, it's empty in here. Seems you don't have any
+                              messages!
+                            </p>
                           </TabPane>
                         </TabContent>
                       </CardBody>
