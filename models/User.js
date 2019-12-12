@@ -87,16 +87,8 @@ const UserSchema = new Schema({
     }
   },
   profilepicture: {
-    data: {
-      type: Buffer,
-      required: true,
-      default: ""
-    },
-    contentType: {
-      type: String,
-      required: true,
-      default: ""
-    }
+    data: Buffer,
+    contentType: String
   }
 });
 

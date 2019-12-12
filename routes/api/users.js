@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
 const moment = require("mongodb-moment");
+const fs = require('fs');
 
 // Load Input Validation
 const validateRegisterInput = require("../../validation/register");
@@ -55,12 +56,8 @@ router.post("/register", (req, res) => {
           garden: false,
           music: false
         },
-        profilepicture: {
-          data: "",
-          contentType: ""
-        }
+        profilepicture: {}
       });
-      console.log(req);
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
@@ -143,8 +140,7 @@ router.post("/getprofileinfo", (req, res) => {
         services: doc.services,
         name: doc.name,
         email: doc.email,
-        profilepicture: doc.profilepicture,
-        profilepictureURL: doc.profilepictureURL
+        profilepicture: doc.profilepicture
       };
       res.status(200).json(response);
     })
@@ -158,7 +154,6 @@ router.post("/getprofileinfo", (req, res) => {
 // @access  Public
 
 router.post("/setprofileinfo", (req, res) => {
-  console.log(req);
   User.findOneAndUpdate(
     { _id: req.body.userId },
     {
@@ -171,8 +166,7 @@ router.post("/setprofileinfo", (req, res) => {
         phonenumber: req.body.phonenumber,
         description: req.body.description,
         services: req.body.services,
-        profilepicture: req.body.profilepicture,
-        profilepictureURL: req.body.profilepictureURL
+        profilepicture: req.body.profilepicture
       }
     }
   )

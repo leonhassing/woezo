@@ -94,7 +94,7 @@ class ShowProfile extends React.Component {
                     width="200px"
                     alt="..."
                     className="rounded-circle"
-                    src={this.props.profileData.profilepictureURL} //require("assets/img/theme/team-4-800x800.jpg")
+                    src={this.props.profileData.profilepicture} //require("assets/img/theme/team-4-800x800.jpg")
                   />
                 </a>
               </div>

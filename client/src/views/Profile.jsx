@@ -55,8 +55,7 @@ class Profile extends React.Component {
       email: "",
       name: "",
       phonenumber: "",
-      profilepicture: "",
-      profilepictureURL: "",
+      profilepicture: {},
       services: {
         cleaning: false,
         cat: false,
@@ -103,9 +102,9 @@ class Profile extends React.Component {
       name: profileInfo.name,
       phonenumber: profileInfo.phonenumber,
       services: profileInfo.services,
-      profilepicture: profileInfo.profilepicture,
-      profilepictureURL: profileInfo.profilepictureURL
+      profilepicture: profileInfo.profilepicture
     });
+    console.log(this.state)
   }
 
   handleProfileSubmit(e, editState) {
@@ -122,8 +121,7 @@ class Profile extends React.Component {
       phonenumber: editState.phonenumber,
       description: editState.description,
       services: editState.services,
-      profilepicture: editState.profilepicture,
-      profilepictureURL: editState.profilepictureURL
+      profilepicture: editState.profilepicture
     };
     setProfileInfo(requestBodyInfo);
     this.setState({
@@ -133,13 +131,10 @@ class Profile extends React.Component {
       description: editState.description,
       email: editState.email,
       profilepicture: editState.profilepicture,
-      profilepictureURL: editState.profilepictureURL,
       name: editState.name,
       phonenumber: editState.phonenumber,
       services: editState.services,
-      edit: false,
-      profilepicture: editState.profilepicture,
-      profilepictureURL: editState.profilepictureURL
+      edit: false
     });
   }
 
@@ -256,12 +251,12 @@ class Profile extends React.Component {
                               profileData={this.state}
                             />
                           ) : (
-                            <ShowProfile
-                              handleLogout={this.handleLogout}
-                              editProfileHandler={this.editProfileHandler}
-                              profileData={this.state}
-                            />
-                          )}
+                              <ShowProfile
+                                handleLogout={this.handleLogout}
+                                editProfileHandler={this.editProfileHandler}
+                                profileData={this.state}
+                              />
+                            )}
                           <TabPane tabId="iconTabs2">
                             <p className="description">
                               Wow, it's empty in here. Seems like you haven't

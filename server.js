@@ -13,8 +13,8 @@ const app = express();
 
 // Body parser middleware
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
 
 // DB Config
 const db = require('./config/keys').mongoURI;
