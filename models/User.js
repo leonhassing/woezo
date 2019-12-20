@@ -23,6 +23,16 @@ const UserSchema = new Schema({
     type: String,
     default: ""
   },
+  coords: {
+    lat: {
+      type: Number,
+      default: ""
+    },
+    lng: {
+      type: Number,
+      default: ""
+    }
+  },
   birthdate: {
     type: Date,
     default: "08/07/1990"

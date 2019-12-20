@@ -39,6 +39,7 @@ import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import { logoutUser } from "../actions/authActions";
 import { setProfileInfo, getUserInfoFromId } from "../actions/profileActions";
+import { getGeocodeCoords } from "../actions/browseActions";
 import ShowProfile from "components/ShowProfile";
 import EditProfile from "components/EditProfile";
 import store from "../store";
@@ -104,24 +105,28 @@ class Profile extends React.Component {
       services: profileInfo.services,
       profilepicture: profileInfo.profilepicture
     });
-    console.log(this.state)
   }
 
-  handleProfileSubmit(e, editState) {
+  async handleProfileSubmit(e, editState) {
     e.preventDefault();
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id;
+    var croppedpicture = await editState.croppieobject.result('base64', 'viewport');
+    var fullAddress = editState.city + ", " + editState.address
+    var coords = await getGeocodeCoords(fullAddress);
+
     var requestBodyInfo = {
       userId: userId,
       address: editState.address,
       birthdate: editState.birthdate,
       city: editState.city,
+      coords: coords,
       name: editState.name,
       email: editState.email,
       phonenumber: editState.phonenumber,
       description: editState.description,
       services: editState.services,
-      profilepicture: editState.profilepicture
+      profilepicture: croppedpicture
     };
     setProfileInfo(requestBodyInfo);
     this.setState({
@@ -130,7 +135,7 @@ class Profile extends React.Component {
       city: editState.city,
       description: editState.description,
       email: editState.email,
-      profilepicture: editState.profilepicture,
+      profilepicture: croppedpicture,
       name: editState.name,
       phonenumber: editState.phonenumber,
       services: editState.services,

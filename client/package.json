@@ -29,6 +29,7 @@
     "url": "https://github.com/creativetimofficial/argon-design-system-react/issues"
   },
   "homepage": "https://www.woezo.nl/",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",

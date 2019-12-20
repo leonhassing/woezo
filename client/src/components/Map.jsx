@@ -11,14 +11,13 @@ const K_SIZE = 80;
 @controllable(["center", "zoom", "hoverKey", "clickKey"])
 class Map extends Component {
   static propTypes = {
-    center: PropTypes.array, // @controllable
+    center: PropTypes.object, // @controllable
     zoom: PropTypes.number, // @controllable
     hoverKey: PropTypes.string, // @controllable
     clickKey: PropTypes.string, // @controllable
     onCenterChange: PropTypes.func, // @controllable generated fn
     onZoomChange: PropTypes.func, // @controllable generated fn
     onHoverKeyChange: PropTypes.func, // @controllable generated fn
-
     locations: PropTypes.array
   };
 
@@ -43,7 +42,8 @@ class Map extends Component {
     };
   }
 
-  _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
+
+  _onChange = (center, zoom /* , bounds, marginBounds */) => {
     this.props.onCenterChange(center);
     this.props.onZoomChange(zoom);
     this.props.onHoverKeyChange(null);
@@ -71,7 +71,6 @@ class Map extends Component {
           key={id}
           {...locationCoords}
           text={id}
-          // use your hover state (from store, react-controllables etc...)
           hover={this.props.hoverKey === id}
           show={this.state.markerClickId === id}
         />
@@ -86,11 +85,10 @@ class Map extends Component {
         <GoogleMap
           bootstrapURLKeys={{ key: "AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0" }}
           defaultCenter={this.props.coords}
-          center={this.props.coords}
           defaultZoom={this.state.zoom}
           zoom={this.state.zoom}
           hoverDistance={K_SIZE / 2}
-          onBoundsChange={this._onBoundsChange}
+          onChange={this._onChange}
           onChildClick={this._onChildClick}
           onChildMouseEnter={this._onChildMouseEnter}
           onChildMouseLeave={this._onChildMouseLeave}

@@ -8,7 +8,7 @@ export const getGeocodeCoords = (location) => {
   var geocodeApiQuery = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`
   return axios
     .get(geocodeApiQuery)
-    .then(response => { 
+    .then(response => {
       const coords = {
         lat: response.data.results[0].geometry.location.lat,
         lng: response.data.results[0].geometry.location.lng

@@ -24,8 +24,8 @@ router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 // @desc    Register user
 // @access  Public
 router.post("/register", (req, res) => {
+  console.log('hier')
   const { errors, isValid } = validateRegisterInput(req.body);
-
   // Check Validation
   if (!isValid) {
     return res.status(400).json(errors);
@@ -42,6 +42,7 @@ router.post("/register", (req, res) => {
         address: "",
         birthdate: "08/07/1990",
         city: "",
+        coords: {},
         phonenumber: "",
         description: "",
         password: req.body.password,
@@ -154,29 +155,30 @@ router.post("/getprofileinfo", (req, res) => {
 // @access  Public
 
 router.post("/setprofileinfo", (req, res) => {
-  User.findOneAndUpdate(
-    { _id: req.body.userId },
-    {
-      $set: {
-        address: req.body.address,
-        birthdate: req.body.birthdate,
-        name: req.body.name,
-        email: req.body.email,
-        city: req.body.city,
-        phonenumber: req.body.phonenumber,
-        description: req.body.description,
-        services: req.body.services,
-        profilepicture: req.body.profilepicture
+  passport.authenticate('jwt', { session: false }),
+    User.findOneAndUpdate(
+      { _id: req.body.userId },
+      {
+        $set: {
+          address: req.body.address,
+          birthdate: req.body.birthdate,
+          name: req.body.name,
+          email: req.body.email,
+          city: req.body.city,
+          phonenumber: req.body.phonenumber,
+          description: req.body.description,
+          services: req.body.services,
+          profilepicture: req.body.profilepicture
+        }
       }
-    }
-  )
-    .exec()
-    .then(doc => {
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      res.json({ error: err });
-    });
+    )
+      .exec()
+      .then(doc => {
+        res.status(200).json(doc);
+      })
+      .catch(err => {
+        res.json({ error: err });
+      });
 });
 
 module.exports = router;

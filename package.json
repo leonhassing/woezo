@@ -1,5 +1,5 @@
 {
-  "name": "Woezo",
+  "name": "woezo",
   "version": "1.0.0",
   "description": "Easily find help in and around the house",
   "main": "server.js",
@@ -13,6 +13,7 @@
   },
   "author": "Brad Traversy",
   "license": "MIT",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
@@ -20,12 +21,12 @@
     "cors": "^2.8.5",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.12",
     "mongodb-moment": "^1.0.2",
+    "mongoose": "^5.0.12",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "validator": "^9.4.1",
-    "react-scripts": "3.0.0"
+    "react-scripts": "^3.3.0",
+    "validator": "^9.4.1"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"

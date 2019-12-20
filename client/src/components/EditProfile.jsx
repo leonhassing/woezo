@@ -228,7 +228,6 @@ class EditProfile extends React.Component {
                 enableOrientation: false
             }))
         });
-        console.log(this.state.profilepicture)
         if (Object.entries(this.state.profilepicture).length === 0) {
             croppie.bind({
                 url: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Philips_PM5544.svg",
