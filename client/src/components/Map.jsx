@@ -84,7 +84,11 @@ class Map extends Component {
       <div style={{ height: mapHeight, width: mapWidth }}>
         <GoogleMap
           bootstrapURLKeys={{ key: "AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0" }}
-          defaultCenter={this.props.coords}
+          defaultCenter={{
+            lat: 52.3666969,
+            lng: 4.8945398
+          }}
+          center={this.props.coords}
           defaultZoom={this.state.zoom}
           zoom={this.state.zoom}
           hoverDistance={K_SIZE / 2}

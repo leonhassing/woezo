@@ -50,7 +50,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       address: "",
-      birthdate: "",
+      birthdate: null,
       city: "",
       description: "",
       email: "",
@@ -77,11 +77,14 @@ class Profile extends React.Component {
     this.editProfileHandler = this.editProfileHandler.bind(this);
   }
 
+  componentWillMount() {
+    this.getUserInfo();
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
-    this.getUserInfo();
   }
 
   editProfileHandler() {
@@ -112,8 +115,12 @@ class Profile extends React.Component {
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id;
     var croppedpicture = await editState.croppieobject.result('base64', 'viewport');
-    var fullAddress = editState.city + ", " + editState.address
-    var coords = await getGeocodeCoords(fullAddress);
+    var requestBody = {
+      userId: userId,
+      city: editState.city,
+      address: editState.address
+    }
+    var coords = await getGeocodeCoords(requestBody);
 
     var requestBodyInfo = {
       userId: userId,

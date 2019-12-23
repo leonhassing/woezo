@@ -43,16 +43,17 @@ export const getUserInfoFromId = requestBody => {
       window.location.hostname +
       "/api/users/getprofileinfo";
   }
-  return axios
+  var res = axios
     .post(userInfoApi, requestBody)
     .then(res => {
-      return res.data
+      return res.data;
     })
     .catch(err => {
       store.dispatch({
         type: GET_ERRORS,
         payload: err
       })
-      return err
+      return err;
     })
+  return res;
 };

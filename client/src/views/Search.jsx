@@ -81,7 +81,11 @@ class Search extends React.Component {
 
     store.dispatch(setCurrentLocation(location));
     store.dispatch(setCurrentService(service));
-    await getGeocodeCoords(location);
+    await getGeocodeCoords({
+      userId: "",
+      address: "",
+      city: location
+    });
     this.props.history.push('/browse-page');
   }
 

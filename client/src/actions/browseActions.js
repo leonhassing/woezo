@@ -4,19 +4,24 @@ import store from '../store'
 import { GET_ERRORS, SET_CURRENT_LOCATION, SET_CURRENT_COORDS, SET_CURRENT_SERVICE } from './types';
 
 // get location from geocode api
-export const getGeocodeCoords = (location) => {
-  var geocodeApiQuery = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`
-  return axios
-    .get(geocodeApiQuery)
-    .then(response => {
-      const coords = {
-        lat: response.data.results[0].geometry.location.lat,
-        lng: response.data.results[0].geometry.location.lng
-      }
-      return store.dispatch(setCurrentCoords(coords));
-    })
-    .then(response => {
-      return response
+export const getGeocodeCoords = (body) => {
+  if (window.location.hostname === "localhost") {
+    var geocoordsApi =
+      window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":5000/api/users/setgeocoords";
+  } else {
+    var geocoordsApi =
+      window.location.protocol +
+      "//" +
+      window.location.hostname +
+      "/api/users/setgeocoords";
+  }
+  axios
+    .post(geocoordsApi, body)
+    .then(res => {
+      store.dispatch(setCurrentCoords(res.data))
     })
     .catch(err =>
       store.dispatch({

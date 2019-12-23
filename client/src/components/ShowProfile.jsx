@@ -94,7 +94,7 @@ class ShowProfile extends React.Component {
                     width="200px"
                     alt="..."
                     className="rounded-circle"
-                    src={this.props.profileData.profilepicture}
+                    src={this.props.profileData.profilepicture.length > 1 ? this.props.profileData.profilepicture : require('../assets/img/theme/default-profile-icon.png')}
                   />
                 </a>
               </div>
@@ -114,10 +114,9 @@ class ShowProfile extends React.Component {
           </Row>
           <div className="text-center mt-5">
             <h3>
-              {this.props.profileData.name}{" "}
+              {this.props.profileData.name === "" ? "John Doe" : this.props.profileData.name}{" "}
               <span className="font-weight-light">
-                ,{" "}
-                {this.calculateAge(new Date(this.props.profileData.birthdate))}
+                {this.props.profileData.birthdate === null ? "" : ", " + this.calculateAge(new Date(this.props.profileData.birthdate))}
               </span>
             </h3>
             <div className="h6 font-weight-300">
@@ -128,7 +127,7 @@ class ShowProfile extends React.Component {
           <div className="mt-5 py-5 border-top text-center">
             <Row className="justify-content-center">
               <Col lg="9">
-                <p>{this.props.profileData.description}</p>
+                <p>{this.props.profileData.description === "" ? "Nog geen beschrijving toegevoegd, laat iets van je weten!" : this.props.profileData.description}</p>
               </Col>
             </Row>
           </div>

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const axios = require('axios');
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -24,7 +25,6 @@ router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 // @desc    Register user
 // @access  Public
 router.post("/register", (req, res) => {
-  console.log('hier')
   const { errors, isValid } = validateRegisterInput(req.body);
   // Check Validation
   if (!isValid) {
@@ -40,7 +40,7 @@ router.post("/register", (req, res) => {
         name: req.body.name,
         email: req.body.email,
         address: "",
-        birthdate: "08/07/1990",
+        birthdate: null,
         city: "",
         coords: {},
         phonenumber: "",
@@ -179,6 +179,49 @@ router.post("/setprofileinfo", (req, res) => {
       .catch(err => {
         res.json({ error: err });
       });
+});
+
+// @route   POST api/users/setgeocoords
+// @desc    Set profile info
+// @access  Public
+
+router.post("/setgeocoords", (req, res) => {
+  if (req.body.address === "") {
+    var geocoordsApi = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.city}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`;
+  } else {
+    var geocoordsApi = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.address},%20${req.body.city}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`;
+  }
+  axios
+    .post(geocoordsApi)
+    .then(response => {
+      const coords = {
+        lat: response.data.results[0].geometry.location.lat,
+        lng: response.data.results[0].geometry.location.lng
+      }
+      if (req.body.userId === '') {
+        res.status(200).json(coords)
+      } else {
+        passport.authenticate('jwt', { session: false }),
+          User.findOneAndUpdate(
+            { _id: req.body.userId },
+            {
+              $set: {
+                coords: {
+                  lat: coords.lat,
+                  lng: coords.lng
+                }
+              }
+            }
+          )
+            .exec()
+            .then(
+              res.status(200).json(coords)
+            )
+      }
+    })
+    .catch(err => {
+      res.json({ error: err });
+    })
 });
 
 module.exports = router;

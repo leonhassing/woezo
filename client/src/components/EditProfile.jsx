@@ -205,8 +205,6 @@ class EditProfile extends React.Component {
                 url: reader.result,
                 orientation: 4
             });
-            console.log(file)
-            console.log(reader.result)
         };
         reader.readAsDataURL(file);
         this.setState({
