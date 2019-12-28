@@ -31,6 +31,34 @@ export const getGeocodeCoords = (body) => {
     )
 };
 
+// get all users who offer a specific services
+export const getUsersFromService = (body) => {
+  if (window.location.hostname === "localhost") {
+    var url =
+      window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":5000/api/users/fromservice";
+  } else {
+    var url =
+      window.location.protocol +
+      "//" +
+      window.location.hostname +
+      "/api/users/fromservice";
+  }
+  return axios
+    .post(url, body)
+    .then(result => {
+      return result
+    })
+    .catch(err =>
+      store.dispatch({
+        type: GET_ERRORS,
+        payload: err
+      })
+    )
+};
+
 // Set location
 export const setCurrentLocation = location => {
   return {

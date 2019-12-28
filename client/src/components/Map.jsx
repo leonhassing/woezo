@@ -21,36 +21,29 @@ class Map extends Component {
     locations: PropTypes.array
   };
 
-  static defaultProps = {
-    locations: [
-      { id: "A", lat: 52.369867, lng: 4.888918 },
-      { id: "B", lat: 52.357389, lng: 4.900575 },
-      { id: "C", lat: 52.386046, lng: 4.917757 }
-    ]
-  };
-
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   constructor(props) {
     super(props);
 
     this.state = {
-      width: 800,
-      height: 600,
-      zoom: 14,
-      markerClickId: 0
+      zoom: 15,
+      markerClickId: null
     };
   }
-
 
   _onChange = (center, zoom /* , bounds, marginBounds */) => {
     this.props.onCenterChange(center);
     this.props.onZoomChange(zoom);
     this.props.onHoverKeyChange(null);
+    if (typeof this.props.clickKey === 'undefined') {
+      this.props.onClickKeyChange(null);
+    }
   };
 
   _onChildClick = (key, childProps) => {
     this.props.onHoverKeyChange(null);
+    this.props.onClickKeyChange(this.props.hoverKey);
     this.setState({ markerClickId: this.props.hoverKey });
   };
 
@@ -63,16 +56,22 @@ class Map extends Component {
   };
 
   render() {
-    const mapLocations = this.props.locations.map(location => {
-      const { id, ...locationCoords } = location;
-
+    var userArray = []
+    if (this.props.userData.data) {
+      userArray = this.props.userData.data
+    }
+    const mapLocations = userArray.map(user => {
+      const { _id } = user;
       return (
         <Marker
-          key={id}
-          {...locationCoords}
-          text={id}
-          hover={this.props.hoverKey === id}
-          show={this.state.markerClickId === id}
+          key={_id}
+          {...user.coords}
+          text={_id}
+          hover={this.props.hoverKey === _id}
+          show={this.state.markerClickId === _id}
+          name={user.name}
+          address={user.address}
+          profilepicture={user.profileicon}
         />
       );
     });

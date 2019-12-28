@@ -29,7 +29,9 @@ class EditProfile extends React.Component {
             phonenumber: this.props.profileData.phonenumber,
             birthdate: this.props.profileData.birthdate,
             description: this.props.profileData.description,
+            originalpicture: this.props.profileData.originalpicture,
             profilepicture: this.props.profileData.profilepicture,
+            profileicon: this.props.profileData.profileicon,
             croppieobject: this.props.croppieobject,
             services: {
                 cleaning: this.props.profileData.services.cleaning,
@@ -196,25 +198,22 @@ class EditProfile extends React.Component {
 
         let reader = new FileReader();
         let file = e.target.files[0];
-
-        reader.onloadend = () => {
-            this.setState({
-                profilepicture: reader.result
-            });
-            this.state.croppieobject.bind({
-                url: reader.result,
-                orientation: 4
-            });
-        };
-        reader.readAsDataURL(file);
-        this.setState({
-            profilepicture: reader.result
-        });
-
+        if (file) {
+            reader.onloadend = () => {
+                this.state.croppieobject.bind({
+                    url: reader.result,
+                    orientation: 4
+                });
+                this.setState({
+                    originalpicture: reader.result
+                });
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     componentDidMount() {
-        var el = document.getElementById("upload-demo");
+        var el = document.getElementById("croppie-frame");
         var croppie;
         this.setState({
             croppieobject: (croppie = new Croppie(el, {
@@ -226,14 +225,14 @@ class EditProfile extends React.Component {
                 enableOrientation: false
             }))
         });
-        if (Object.entries(this.state.profilepicture).length === 0) {
+        if (Object.entries(this.state.originalpicture).length === 0) {
             croppie.bind({
                 url: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Philips_PM5544.svg",
                 orientation: 4
             });
         } else {
             croppie.bind({
-                url: this.state.profilepicture,
+                url: this.state.originalpicture,
                 orientation: 4
             });
         }
@@ -373,7 +372,7 @@ class EditProfile extends React.Component {
                     <Row>
                         <Col className="justify-center" lg="12">
                             <div
-                                id="upload-demo"
+                                id="croppie-frame"
                                 className="pt-4"
                                 style={{ widht: 300, height: 300 }}
                             ></div>

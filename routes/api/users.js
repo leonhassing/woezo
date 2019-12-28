@@ -57,7 +57,9 @@ router.post("/register", (req, res) => {
           garden: false,
           music: false
         },
-        profilepicture: {}
+        originalpicture: {},
+        profilepicture: {},
+        profileicon: {}
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -141,7 +143,9 @@ router.post("/getprofileinfo", (req, res) => {
         services: doc.services,
         name: doc.name,
         email: doc.email,
-        profilepicture: doc.profilepicture
+        originalpicture: doc.originalpicture,
+        profilepicture: doc.profilepicture,
+        profileicon: doc.profileicon
       };
       res.status(200).json(response);
     })
@@ -168,7 +172,9 @@ router.post("/setprofileinfo", (req, res) => {
           phonenumber: req.body.phonenumber,
           description: req.body.description,
           services: req.body.services,
-          profilepicture: req.body.profilepicture
+          originalpicture: req.body.originalpicture,
+          profilepicture: req.body.profilepicture,
+          profileicon: req.body.profileicon
         }
       }
     )
@@ -223,5 +229,117 @@ router.post("/setgeocoords", (req, res) => {
       res.json({ error: err });
     })
 });
+
+// @route   POST api/users/fromservice
+// @desc    Get all users who offer a specific service
+// @access  Public { 'headers.From': "reservations@marriott.com" } 
+
+router.post("/fromservice", (req, res) => {
+  switch (req.body.service) {
+    case 'cleaning':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.cleaning': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'cat':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.cat': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'dog':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.dog': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'baby':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.baby': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'tutor':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.tutor': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'handy':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.handy': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'it':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.it': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'garden':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.garden': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    case 'music':
+      passport.authenticate('jwt', { session: false }),
+        User.find({ 'services.music': true })
+          .exec()
+          .then(users => {
+            res.status(200).json(users)
+          })
+          .catch(err => {
+            res.json({ error: err });
+          })
+      break;
+    default:
+      res.json({ error: err });
+  }
+});
+
+
 
 module.exports = router;

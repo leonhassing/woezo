@@ -99,6 +99,14 @@ const UserSchema = new Schema({
   profilepicture: {
     data: Buffer,
     contentType: String
+  },
+  profileicon: {
+    data: Buffer,
+    contentType: String
+  },
+  originalpicture: {
+    data: Buffer,
+    contentType: String
   }
 });
 

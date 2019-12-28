@@ -56,7 +56,9 @@ class Profile extends React.Component {
       email: "",
       name: "",
       phonenumber: "",
+      originalpicture: {},
       profilepicture: {},
+      profileicon: {},
       services: {
         cleaning: false,
         cat: false,
@@ -106,7 +108,9 @@ class Profile extends React.Component {
       name: profileInfo.name,
       phonenumber: profileInfo.phonenumber,
       services: profileInfo.services,
-      profilepicture: profileInfo.profilepicture
+      originalpicture: profileInfo.originalpicture,
+      profilepicture: profileInfo.profilepicture,
+      profileicon: profileInfo.profileicon
     });
   }
 
@@ -114,7 +118,8 @@ class Profile extends React.Component {
     e.preventDefault();
     var reduxState = store.getState();
     var userId = reduxState.auth.user.id;
-    var croppedpicture = await editState.croppieobject.result('base64', 'viewport');
+    var croppedpicture = await editState.croppieobject.result({ type: 'base64', size: 'original', circle: true });
+    var croppedicon = await editState.croppieobject.result({ type: 'base64', size: { width: 70, height: 70 }, circle: true });
     var requestBody = {
       userId: userId,
       city: editState.city,
@@ -133,7 +138,9 @@ class Profile extends React.Component {
       phonenumber: editState.phonenumber,
       description: editState.description,
       services: editState.services,
-      profilepicture: croppedpicture
+      originalpicture: editState.originalpicture,
+      profilepicture: croppedpicture,
+      profileicon: croppedicon
     };
     setProfileInfo(requestBodyInfo);
     this.setState({
@@ -142,7 +149,9 @@ class Profile extends React.Component {
       city: editState.city,
       description: editState.description,
       email: editState.email,
+      originalpicture: editState.originalpicture,
       profilepicture: croppedpicture,
+      profileicon: croppedicon,
       name: editState.name,
       phonenumber: editState.phonenumber,
       services: editState.services,
