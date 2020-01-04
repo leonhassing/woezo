@@ -30,12 +30,14 @@ import Profile from "views/Profile.jsx";
 import Register from "views/Register.jsx";
 import Search from "views/Search.jsx";
 import Browse from "views/Browse.jsx";
+import Reservation from "views/Reservation.jsx";
 
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import { Provider } from 'react-redux';
 import store from './store';
+
 // import RegisterUser from './components/auth/RegisterUser';
 // import LoginUser from './components/auth/LoginUser';
 // import PrivateRoute from './components/common/PrivateRoute';
@@ -89,6 +91,11 @@ ReactDOM.render(
           path="/browse-page"
           exact
           render={props => <Browse {...props} />}
+        />
+        <Route
+          path="/reservation-page"
+          exact
+          render={props => <Reservation {...props} />}
         />
         <Redirect to="/" />
       </Switch>

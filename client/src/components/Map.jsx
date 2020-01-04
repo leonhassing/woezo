@@ -45,6 +45,7 @@ class Map extends Component {
     this.props.onHoverKeyChange(null);
     this.props.onClickKeyChange(this.props.hoverKey);
     this.setState({ markerClickId: this.props.hoverKey });
+    this.props.userSelection(this.props.hoverKey);
   };
 
   _onChildMouseEnter = (key /*, childProps */) => {

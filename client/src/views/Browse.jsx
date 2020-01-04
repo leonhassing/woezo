@@ -52,9 +52,11 @@ class Browse extends React.Component {
 
     this.state = {
       filteredUsers: {},
+      selectedUser: "",
       width: 800,
       height: 600
     };
+    this.userSelection = this.userSelection.bind(this);
   }
 
 
@@ -131,8 +133,8 @@ class Browse extends React.Component {
     this.setState({ width: updateWidth, height: updateHeight });
   }
 
-  getUserData() {
-
+  userSelection(userId) {
+    this.setState({ selectedUser: userId })
   }
 
   render() {
@@ -261,6 +263,7 @@ class Browse extends React.Component {
                     height={this.state.height}
                     width={this.state.width}
                     userData={this.state.filteredUsers}
+                    selectedUser={this.state.selectedUser}
                   />
                 </Col>
                 <Col className="pl-1" md="8">
@@ -268,6 +271,7 @@ class Browse extends React.Component {
                     height={this.state.height}
                     width={this.state.width}
                     userData={this.state.filteredUsers}
+                    userSelection={this.userSelection}
                   ></Map>
                 </Col>
               </Row>
