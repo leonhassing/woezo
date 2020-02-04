@@ -82,7 +82,8 @@ class Landing extends React.Component {
                         <Button
                           className="btn-1 btn-icon mb-3 mb-sm-0 ml-1"
                           color="info"
-                          href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
+                          to="/search-page"
+                          tag={Link}
                         >
                           <span className="btn-inner--icon mr-1 text-white">
                             <i
