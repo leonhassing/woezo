@@ -83,7 +83,7 @@ class Map extends Component {
     return (
       <div style={{ height: mapHeight, width: mapWidth }}>
         <GoogleMap
-          bootstrapURLKeys={{ key: "AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0" }}
+          bootstrapURLKeys={{ key: "AIzaSyDMLEUYM3B_nSVDdxPjPRZ6zJlFuAFPHak" }}
           defaultCenter={{
             lat: 52.3666969,
             lng: 4.8945398

@@ -193,9 +193,9 @@ router.post("/setprofileinfo", (req, res) => {
 
 router.post("/setgeocoords", (req, res) => {
   if (req.body.address === "") {
-    var geocoordsApi = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.city}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`;
+    var geocoordsApi = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.city}&key=AIzaSyDMLEUYM3B_nSVDdxPjPRZ6zJlFuAFPHak`;
   } else {
-    var geocoordsApi = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.address},%20${req.body.city}&key=AIzaSyBe-EFdjehTk_14OJIRHrCgnWOU9sZaO-0`;
+    var geocoordsApi = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.address},%20${req.body.city}&key=AIzaSyDMLEUYM3B_nSVDdxPjPRZ6zJlFuAFPHak`;
   }
   axios
     .post(geocoordsApi)
