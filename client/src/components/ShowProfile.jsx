@@ -88,7 +88,7 @@ class ShowProfile extends React.Component {
             </Col>
             <Col className="justify-content-center" lg="3">
               <div className="card-profile-image">
-                <a href="#pablo" onClick={e => e.preventDefault()}>
+                <p href="#pablo" onClick={e => e.preventDefault()}>
                   <img
                     height="200px"
                     width="200px"
@@ -96,7 +96,7 @@ class ShowProfile extends React.Component {
                     className="rounded-circle"
                     src={this.props.profileData.profilepicture.length > 1 ? this.props.profileData.profilepicture : require('../assets/img/theme/default-profile-icon.png')}
                   />
-                </a>
+                </p>
               </div>
             </Col>
             <Col lg="4">
